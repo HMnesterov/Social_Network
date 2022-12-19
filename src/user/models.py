@@ -10,17 +10,17 @@ class Friendship(models.Model):
         return f"{self.person_id} wants to be your friend!"
 
 
-
 class Person(AbstractUser):
-    photo = models.ImageField(blank=True, upload_to='media/users/users_main_photos/')
-    friends = models.ManyToManyField('self', blank=True,  verbose_name='friends', related_name='fr',symmetrical=False)
-    friends_requests = models.ForeignKey(Friendship, blank=True, null=True, verbose_name='friend_accept', on_delete=models.PROTECT)
+    photo = models.ImageField(blank=True, upload_to='media/users/users_main_photos/',
+                              default='media/users/users_main_photos/default.jpg')
+    friends = models.ManyToManyField('self', blank=True, verbose_name='friends', related_name='fr', symmetrical=False)
+    friends_requests = models.ForeignKey(Friendship, blank=True, null=True, verbose_name='friend_accept',
+                                         on_delete=models.PROTECT)
+    bio = models.TextField(max_length=200, default='Не указано', blank=True)
+    status = models.CharField(max_length=20, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.first_name
-
-
-
