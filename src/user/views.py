@@ -7,24 +7,24 @@ from .forms import RegisterUserForm, LoginUserForm
 
 
 def register(request):
-    if request.user.is_authenticated:
-        return HttpResponse('You already have an account!')
+    #if request.user.is_authenticated:
+    #    return HttpResponse('You already have an account!')
     form = RegisterUserForm()
     if request.method == 'POST':
 
-        form = RegisterUserForm(request.POST)
+        form = RegisterUserForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             login(request=request, user=user)
 
-            return HttpResponse('well done')
+           # return HttpResponse('well done')
 
     return render(request, 'user/register.html', {'form': form})
 
 
 def authorization(request):
-    if request.user.is_authenticated:
-        return HttpResponse('You already in your account!')
+   # if request.user.is_authenticated:
+   #     return HttpResponse('You already in your account!')
     form = LoginUserForm()
 
     if request.method == "POST":
@@ -34,7 +34,7 @@ def authorization(request):
             user = form.get_user()
             login(request=request, user=user)
 
-            return HttpResponse('success')
+            #return HttpResponse('success')
 
     return render(request, 'user/register.html', {'form': form})
 

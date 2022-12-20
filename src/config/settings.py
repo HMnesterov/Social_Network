@@ -92,4 +92,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.Person'
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media/')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
