@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'user',
     #friendship requests app
     'friendship',
+    #apps for user views
+    'user_profile',
 ]
 
 MIDDLEWARE = [

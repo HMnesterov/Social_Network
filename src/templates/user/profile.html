@@ -1,2 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'user/base.html' %}
+{% block content %}
 
+ я - {{user.username}}
+<img src='../../media/{{user.photo}}'>
+{{user.friends}}
+
+
+{% endblock %}
