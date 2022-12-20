@@ -3,11 +3,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-
+from friendship import urls
 from user import urls
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', include(urls))
+    path('user/', include(urls)),
+    path('friendship/', include(urls)),
 ]
 
 if settings.DEBUG:
