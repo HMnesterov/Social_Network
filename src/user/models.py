@@ -16,4 +16,4 @@ class Person(AbstractUser):
     status = models.CharField(max_length=20, blank=True, null=True)
     objects = UserManager()
 
-    posts = models.ForeignKey(Post, blank=True, null=True, on_delete=models.PROTECT)
+

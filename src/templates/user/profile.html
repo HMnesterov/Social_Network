@@ -22,13 +22,14 @@
                   <div class="profile-header-content">
                      <!-- BEGIN profile-header-img -->
                      <div class="profile-header-img">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                        <img src="../../media/{{user.photo}}" alt="">
                      </div>
                      <!-- END profile-header-img -->
                      <!-- BEGIN profile-header-info -->
                      <div class="profile-header-info">
-                        <h4 class="m-t-10 m-b-5">Sean Ngu</h4>
-                        <p class="m-b-10">UXUI + Frontend Developer</p>
+                        <h4 class="m-t-10 m-b-5">{{user.username}}</h4>
+                        <p class="m-b-10">{{user.status}}</p>
+
                         <a href="#" class="btn btn-sm btn-info mb-2">Edit Profile</a>
                      </div>
                      <!-- END profile-header-info -->
@@ -36,11 +37,11 @@
                   <!-- END profile-header-content -->
                   <!-- BEGIN profile-header-tab -->
                   <ul class="profile-header-tab nav nav-tabs">
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-with-timeline-posts" target="__blank" class="nav-link_">POSTS</a></li>
+                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-with-timeline-posts" target="__blank" class="nav-link_ active show">POSTS</a></li>
                      <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-about" target="__blank" class="nav-link_">ABOUT</a></li>
                      <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/profile-photos" target="__blank" class="nav-link_">PHOTOS</a></li>
                      <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/profile-videos" target="__blank" class="nav-link_">VIDEOS</a></li>
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-friend-list" target="__blank" class="nav-link_ active show">FRIENDS</a></li>
+                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-friend-list" target="__blank" class="nav-link_">FRIENDS</a></li>
                   </ul>
                   <!-- END profile-header-tab -->
                </div>
@@ -54,11 +55,84 @@
                   <div class="tab-pane fade active show" id="profile-post">
                      <!-- begin timeline -->
                      <ul class="timeline">
+                        <li>
+                           <!-- start posts -->
+                        </li>
+                        {% if posts %}
+                        {% for post in posts %}
+                        <li>
+                           <!-- begin timeline-time -->
+                           <div class="timeline-time">
+                              <span class="date">{{post.created_date}}</span>
+                              <span class="time">{{post.created_time}}</span>
+                           </div>
+                           <!-- end timeline-time -->
+                           <!-- begin timeline-icon -->
+                           <div class="timeline-icon">
+                              <a href="javascript:;">&nbsp;</a>
+                           </div>
+                           <!-- end timeline-icon -->
+                           <!-- begin timeline-body -->
+                           <div class="timeline-body">
+                              <div class="timeline-header">
+                                 <span class="userimage"><img src='../../media/{{user.photo}}'> alt=""></span>
+                                 <span class="username">{{user.username}}</span>
+                                 <span class="pull-right text-muted">{{post.views}}</span>
+                              </div>
+
+                              <div class="timeline-content">
+                                 <p class="lead">
+                                    <i class="fa fa-quote-left fa-fw pull-left"></i>
+                                    {{post.text}}
+                                    <i class="fa fa-quote-right fa-fw pull-right"></i>
+                                 </p>
+                              </div>
+                              <div class="timeline-likes">
+                                 <div class="stats-right">
+                                    <span class="stats-text">259 Shares</span>
+                                    <span class="stats-text">21 Comments</span>
+                                 </div>
+                                 <div class="stats">
+                                    <span class="fa-stack fa-fw stats-icon">
+                                    <i class="fa fa-circle fa-stack-2x text-danger"></i>
+                                    <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
+                                    </span>
+                                    <span class="fa-stack fa-fw stats-icon">
+                                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                    <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <span class="stats-total">4.3k</span>
+                                 </div>
+                              </div>
+                              <div class="timeline-footer">
+                                 <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
+                                 <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
+                                 <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
+                              </div>
+                              <div class="timeline-comment-box">
+                                 <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png"></div>
+                                 <div class="input">
+                                    <form action="">
+                                       <div class="input-group">
+                                          <input type="text" class="form-control rounded-corner" placeholder="Write a comment...">
+                                          <span class="input-group-btn p-l-10">
+                                          <button class="btn btn-primary f-s-12 rounded-corner" type="button">Comment</button>
+                                          </span>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           <!-- end timeline-body -->
+                        </li>
+                        {% endfor %}
+                        {% else %}
+                          Постов нет!
+                        {% endif %}
 
                         <li>
                            <!-- begin timeline-time -->
                            <div class="timeline-time">
-                              <span class="date">24 February 2014</span>
+                              <span class="date">24 February 2022</span>
                               <span class="time">08:17</span>
                            </div>
                            <!-- end timeline-time -->
@@ -81,51 +155,45 @@
                                     <i class="fa fa-quote-right fa-fw pull-right"></i>
                                  </p>
                               </div>
-                              <div class="timeline-footer">
-                                 <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                 <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                 <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
-                              </div>
-                           </div>
-                           <!-- end timeline-body -->
-                        </li>
-                        <li>
-                           <!-- begin timeline-time -->
-                           <div class="timeline-time">
-                              <span class="date">10 January 2014</span>
-                              <span class="time">20:43</span>
-                           </div>
-                           <!-- end timeline-time -->
-                           <!-- begin timeline-icon -->
-                           <div class="timeline-icon">
-                              <a href="javascript:;">&nbsp;</a>
-                           </div>
-                           <!-- end timeline-icon -->
-                           <!-- begin timeline-body -->
-                           <div class="timeline-body">
-                              <div class="timeline-header">
-                                 <span class="userimage"><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>
-                                 <span class="username">Sean Ngu</span>
-                                 <span class="pull-right text-muted">1,021,282 Views</span>
-                              </div>
-                              <div class="timeline-content">
-                                 <h4 class="template-title">
-                                    <i class="fa fa-map-marker text-danger fa-fw"></i>
-                                    795 Folsom Ave, Suite 600 San Francisco, CA 94107
-                                 </h4>
-                                 <p>In hac habitasse platea dictumst. Pellentesque bibendum id sem nec faucibus. Maecenas molestie, augue vel accumsan rutrum, massa mi rutrum odio, id luctus mauris nibh ut leo.</p>
-                                 <p class="m-t-20">
-                                    <img src="../assets/img/gallery/gallery-5.jpg" alt="">
-                                 </p>
+                              <div class="timeline-likes">
+                                 <div class="stats-right">
+                                    <span class="stats-text">259 Shares</span>
+                                    <span class="stats-text">21 Comments</span>
+                                 </div>
+                                 <div class="stats">
+                                    <span class="fa-stack fa-fw stats-icon">
+                                    <i class="fa fa-circle fa-stack-2x text-danger"></i>
+                                    <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
+                                    </span>
+                                    <span class="fa-stack fa-fw stats-icon">
+                                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                    <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <span class="stats-total">4.3k</span>
+                                 </div>
                               </div>
                               <div class="timeline-footer">
                                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
                                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
                                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                               </div>
+                              <div class="timeline-comment-box">
+                                 <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png"></div>
+                                 <div class="input">
+                                    <form action="">
+                                       <div class="input-group">
+                                          <input type="text" class="form-control rounded-corner" placeholder="Write a comment...">
+                                          <span class="input-group-btn p-l-10">
+                                          <button class="btn btn-primary f-s-12 rounded-corner" type="button">Comment</button>
+                                          </span>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
                            </div>
                            <!-- end timeline-body -->
                         </li>
+
                         <li>
                            <!-- begin timeline-icon -->
                            <div class="timeline-icon">
