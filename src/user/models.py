@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import UserManager
 
+from user_profile.models import Post
+
 
 #class
 
@@ -13,5 +15,5 @@ class Person(AbstractUser):
     bio = models.TextField(max_length=200, default='Not stated', blank=True)
     status = models.CharField(max_length=20, blank=True, null=True)
     objects = UserManager()
-    def __str__(self):
-        return self.username
+
+    posts = models.ForeignKey(Post, blank=True, null=True, on_delete=models.PROTECT)
