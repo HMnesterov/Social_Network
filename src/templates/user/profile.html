@@ -75,8 +75,8 @@
                            <!-- begin timeline-body -->
                            <div class="timeline-body">
                               <div class="timeline-header">
-                                 <span class="userimage"><img src='../../media/{{user.photo}}'> alt=""></span>
-                                 <span class="username">{{user.username}}</span>
+                                 <span class="userimage"><img src='../../media/{{post.author.photo}}'> alt=""></span>
+                                 <span class="username">{{post.author.username}}</span>
                                  <span class="pull-right text-muted">{{post.views}}</span>
                               </div>
 
@@ -89,8 +89,8 @@
                               </div>
                               <div class="timeline-likes">
                                  <div class="stats-right">
-                                    <span class="stats-text">259 Shares</span>
-                                    <span class="stats-text">21 Comments</span>
+                                    <span class="stats-text">2123 Shares</span>
+                                    <span class="stats-text">13123 Comments</span>
                                  </div>
                                  <div class="stats">
                                     <span class="fa-stack fa-fw stats-icon">
@@ -101,7 +101,7 @@
                                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
                                     <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
                                     </span>
-                                    <span class="stats-total">4.3k</span>
+                                    <span class="stats-total">1.2k</span>
                                  </div>
                               </div>
                               <div class="timeline-footer">
@@ -123,11 +123,13 @@
                                  </div>
                               </div>
                            <!-- end timeline-body -->
-                        </li>
+
                         {% endfor %}
+
                         {% else %}
                           Постов нет!
                         {% endif %}
+                              </li>
 
                         <li>
                            <!-- begin timeline-time -->

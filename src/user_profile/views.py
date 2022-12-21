@@ -8,7 +8,8 @@ from user.models import Person
 def user_profile(request, id):
     user = get_object_or_404(Person, id=id)
     try:
-        posts = user.posts.all()
+        posts = user.where_published.all()
+
         return render(request, 'user/profile.html', {'user': user, 'posts': posts})
     except AttributeError:
         return render(request, 'user/profile.html', {'user': user, 'posts': None})
