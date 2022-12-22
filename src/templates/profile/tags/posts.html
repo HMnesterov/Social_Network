@@ -1,58 +1,5 @@
-{% extends 'user/base.html' %}
-{% load static %}
-{% block js %}
 
-<link rel="stylesheet" href="{% static 'profile.css' %}">
-{% endblock %}
-{% block content %}
-
-
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
-   <div class="row">
-      <div class="col-md-12">
-         <div id="content" class="content content-full-width">
-            <!-- begin profile -->
-            <div class="profile">
-               <div class="profile-header">
-                  <!-- BEGIN profile-header-cover -->
-                  <div class="profile-header-cover"></div>
-                  <!-- END profile-header-cover -->
-                  <!-- BEGIN profile-header-content -->
-                  <div class="profile-header-content">
-                     <!-- BEGIN profile-header-img -->
-                     <div class="profile-header-img">
-                        <img src="../../media/{{user.photo}}" alt="">
-                     </div>
-                     <!-- END profile-header-img -->
-                     <!-- BEGIN profile-header-info -->
-                     <div class="profile-header-info">
-                        <h4 class="m-t-10 m-b-5">{{user.username}}</h4>
-                        <p class="m-b-10">{{user.status}}</p>
-
-                        <a href="#" class="btn btn-sm btn-info mb-2">Edit Profile</a>
-                     </div>
-                     <!-- END profile-header-info -->
-                  </div>
-                  <!-- END profile-header-content -->
-                  <!-- BEGIN profile-header-tab -->
-                  <ul class="profile-header-tab nav nav-tabs">
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-with-timeline-posts" target="__blank" class="nav-link_ active show">POSTS</a></li>
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-about" target="__blank" class="nav-link_">ABOUT</a></li>
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/profile-photos" target="__blank" class="nav-link_">PHOTOS</a></li>
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/profile-videos" target="__blank" class="nav-link_">VIDEOS</a></li>
-                     <li class="nav-item"><a href="https://www.bootdey.com/snippets/view/bs4-profile-friend-list" target="__blank" class="nav-link_">FRIENDS</a></li>
-                  </ul>
-                  <!-- END profile-header-tab -->
-               </div>
-            </div>
-            <!-- end profile -->
-            <!-- begin profile-content -->
-            <div class="profile-content">
-               <!-- begin tab-content -->
-               <div class="tab-content p-0">
-                  <!-- begin #profile-post tab -->
-                  <div class="tab-pane fade active show" id="profile-post">
+<div class="tab-pane fade active show" id="profile-post">
                      <!-- begin timeline -->
                      <ul class="timeline">
                         <li>
@@ -75,8 +22,8 @@
                            <!-- begin timeline-body -->
                            <div class="timeline-body">
                               <div class="timeline-header">
-                                 <span class="userimage"><img src='../../media/{{post.author.photo}}'> alt=""></span>
-                                 <span class="username">{{post.author.username}}</span>
+                                 <span class="userimage"><a href="{{post.author.profile_link}}"><img src='../../media/{{post.author.photo}}'> alt=""></a></span>
+                                 <span class="username"><a href="{{post.author.profile_link}}">{{post.author.username}}</a></span>
                                  <span class="pull-right text-muted">{{post.views}}</span>
                               </div>
 
@@ -110,7 +57,7 @@
                                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                               </div>
                               <div class="timeline-comment-box">
-                                 <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png"></div>
+                                 <div class="user"><img src="../../media/{{request.user.photo}}"></div>
                                  <div class="input">
                                     <form action="">
                                        <div class="input-group">
@@ -146,14 +93,14 @@
                            <!-- begin timeline-body -->
                            <div class="timeline-body">
                               <div class="timeline-header">
-                                 <span class="userimage"><img src='../../media/{{user.photo}}'> alt=""></span>
-                                 <span class="username">Adolf Hitler</span>
+                                 <span class="userimage"><img src='{{user.valid_photo_url}}'> alt=""></span>
+                                 <span class="username">Billy Herrington</span>
                                  <span class="pull-right text-muted">1,282,321,3 Views</span>
                               </div>
                               <div class="timeline-content">
                                  <p class="lead">
                                     <i class="fa fa-quote-left fa-fw pull-left"></i>
-                                      Das Dritte Reich wird niemals fallen!!!!
+                                      Niggers!!!!
                                     <i class="fa fa-quote-right fa-fw pull-right"></i>
                                  </p>
                               </div>
@@ -180,7 +127,7 @@
                                  <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
                               </div>
                               <div class="timeline-comment-box">
-                                 <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png"></div>
+                                 <div class="user"><img src=""></div>
                                  <div class="input">
                                     <form action="">
                                        <div class="input-group">
@@ -210,17 +157,3 @@
                         </li>
                      </ul>
                      <!-- end timeline -->
-                  </div>
-                  <!-- end #profile-post tab -->
-               </div>
-               <!-- end tab-content -->
-            </div>
-            <!-- end profile-content -->
-         </div>
-      </div>
-   </div>
-</div>
-
-
-
-{% endblock %}
