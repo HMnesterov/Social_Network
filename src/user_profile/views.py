@@ -14,7 +14,6 @@ def user_profile(request, id):
     return render(request, 'profile/profile.html', {'user': user, 'posts': posts})
 
 
-
 @login_required
 def user_profile_friends(request, id):
     user = get_object_or_404(Person, id=id)
@@ -25,5 +24,7 @@ def user_profile_friends(request, id):
         return render(request, 'profile/friends.html', {'user': user, 'friends': None})
 
 
-
-
+@login_required
+def show_all_users(request):
+    friends = request.user.friends.all()
+    return render(request, 'all_users.html', {'users': Person.objects.all(), 'friends': friends})
