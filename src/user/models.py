@@ -1,8 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import UserManager
-
-
+from django.urls import reverse
 
 
 #class
@@ -16,4 +15,10 @@ class Person(AbstractUser):
     status = models.CharField(max_length=20, blank=True, null=True)
     objects = UserManager()
 
+    def profile_link(self):
+        return reverse('user_profile', kwargs={'id': self.id})
+
+
+    def valid_photo_url(self):
+        return "http://127.0.0.1:8000/" + 'media/' + f'{self.photo}'
 

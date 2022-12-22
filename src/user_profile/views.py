@@ -8,10 +8,22 @@ from user.models import Person
 def user_profile(request, id):
     user = get_object_or_404(Person, id=id)
     try:
-        posts = user.where_published.all()
-
-        return render(request, 'user/profile.html', {'user': user, 'posts': posts})
+        posts = user.where_published.all().select_related('author')
     except AttributeError:
-        return render(request, 'user/profile.html', {'user': user, 'posts': None})
+        posts = None
+    return render(request, 'profile/profile.html', {'user': user, 'posts': posts})
+
+
+
+@login_required
+def user_profile_friends(request, id):
+    user = get_object_or_404(Person, id=id)
+    try:
+        friends = user.friends.all()
+        return render(request, 'profile/friends.html', {'user': user, 'friends': friends})
+    except AttributeError:
+        return render(request, 'profile/friends.html', {'user': user, 'friends': None})
+
+
 
 

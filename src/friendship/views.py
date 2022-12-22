@@ -14,7 +14,7 @@ def send_friendship_request(request, id):
 
     try:
         """ use get_or_created to protect models from dublicate requests"""
-        Friendship.objects.create(from_user=from_user, to_user=to_user)
+        Friendship.objects.get_or_create(from_user=from_user, to_user=to_user)
         return HttpResponse(f'{from_user} send a request to {to_user}')
     except Exception as e:
         print(e)
