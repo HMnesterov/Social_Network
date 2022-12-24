@@ -648,3 +648,36 @@ select.form-control:not([size]):not([multiple]) {
 /* SIDEBAR
 
  */
+.p_non_log_text {
+    font-family: sans-serif;
+    font-size: 45px;
+
+
+    /* подстраиваем ширину заголовка под самое длинное слово*/
+    width: -webkit-min-content;
+    width: -moz-min-content;
+    width: min-content;
+
+    /* делаем автоматические отступы */
+    margin: auto;
+    /* переводим все буквы в заглавные */
+    text-transform: uppercase;
+
+    /* делаем цветные полосы по тексту */
+    background: linear-gradient(219deg,
+    var(--color-1) 19%,
+    transparent 19%, transparent 20%,
+    var(--color-2) 20%, var(--color-2) 39%,
+    transparent 39%, transparent 40%,
+    var(--color-3) 40%, var(--color-3) 59%,
+    transparent 59%, transparent 60%,
+    var(--color-4) 60%, var(--color-4) 79%,
+    transparent 79%, transparent 80%,
+    var(--color-5) 80%);
+    /* обрезаем фон по контуру букв */
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    /* делаем заголовок прозрачным, чтобы был виден цветной фон */
+    color: transparent;
+}
