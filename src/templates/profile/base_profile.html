@@ -12,6 +12,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js" rel="stylesheet">
 
+{% include 'interface/sidebar.html' %}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -43,15 +44,15 @@
                         <ul class="profile-header-tab nav nav-tabs">
                             <li class="nav-item"><a
                                     href="{% url 'user_profile' id=user.id %}"
-                                    target="__blank" class="nav-link_">POSTS</a></li>
+                                     class="nav-link_">POSTS</a></li>
                             <li class="nav-item"><a href=""
-                                                    target="__blank" class="nav-link_">ABOUT</a></>
+                                                     class="nav-link_">ABOUT</a></>
                             <li class="nav-item"><a href=""
-                                                    target="__blank" class="nav-link_">PHOTOS</a></li>
+                                                     class="nav-link_">PHOTOS</a></li>
                             <li class="nav-item"><a href=""
-                                                    target="__blank" class="nav-link_">VIDEOS</a></li>
+                                                    class="nav-link_">VIDEOS</a></li>
                             <li class="nav-item"><a href="{% url 'user_friends' id=user.id %}"
-                                                    target="__blank" class="nav-link_">FRIENDS</a></li>
+                                                     class="nav-link_">FRIENDS</a></li>
                         </ul>
                         <!-- END profile-header-tab -->
                     </div>
