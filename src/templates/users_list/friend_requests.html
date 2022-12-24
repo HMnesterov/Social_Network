@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'all_users.css' %}">
+    <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+</head>
+<body>
+{% include 'interface/sidebar.html' %}
+
+<ul class="cards">
+    {% for req in requests %}
+    <li class="cards__item">
+
+
+
+
+
+        <div class="card__image card__image--fence"></div>
+        <div class="card__content">
+            <div class="card__title">{{req}}</div>
+             <a href="{% url 'friendship_accept' id=req.from_user.id %}">
+                <button type="button" class="btn btn--block card__btn">Accept friendship</button>
+            </a>
+
+            <a href="{% url 'friendship_reject' id=req.from_user.id %}">
+                <button type="button" class="btn btn--block card__btn">Reject friendship</button>
+            </a>
+
+
+
+
+        </div>
+        </div>
+    </li>
+{% endfor %}
+
+</ul>
+</body>

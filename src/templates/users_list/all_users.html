@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'all_users.css' %}">
+    <link rel="stylesheet" href="{% static 'sidebar.css' %}">
 </head>
 <body>
-
+{% include 'interface/sidebar.html' %}
 
 <ul class="cards">
     {% for user in users %}
@@ -25,6 +26,7 @@
             <a href="{% url 'friendship_add' id=user.id %} ">
                 <button type="button" class="btn btn--block card__btn">Send Friend Request</button>
             </a>
+
            {% endif %}
 
         </div>

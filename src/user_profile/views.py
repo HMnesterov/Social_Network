@@ -40,7 +40,6 @@ def user_profile_friends(request, id):
         return render(request, 'profile/friends.html', {'user': user, 'friends': None})
 
 
-@login_required
-def show_all_users(request):
-    friends = request.user.friends.all()
-    return render(request, 'all_users.html', {'users': Person.objects.all().exclude(id=request.user.id), 'friends': friends})
+
+
+
