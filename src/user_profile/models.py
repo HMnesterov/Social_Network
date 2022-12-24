@@ -16,6 +16,6 @@ class Post(models.Model):
     images = models.ForeignKey(Property, blank=True, on_delete=models.PROTECT, null=True, )
     likes = models.IntegerField(default=0)
     views = models.IntegerField(default=1)
-    author = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='return_posts')
-    where_published = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='where_published')
+    author = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='return_posts',)
+    where_published = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='where_published',)
 
