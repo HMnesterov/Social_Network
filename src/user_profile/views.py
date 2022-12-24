@@ -41,5 +41,13 @@ def user_profile_friends(request, id):
 
 
 
+@login_required
+def news(request):
+    friends = request.user.friends.all()
+    posts = []
+    for friend in friends:
+        friend_posts = friend.return_posts.all()
+        posts += friend_posts
 
 
+    return render(request, 'news.html', {'posts': posts})

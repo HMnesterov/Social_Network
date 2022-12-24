@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+
+
+    <title>News</title>
+</head>
+<body>
+<h1><center>News</center></h1>
+{% include 'interface/sidebar.html' %}
+{% if not posts %}
+<h1>There is no any news. You should add some people in your friends!</h1>
+{% else %}
+{% include 'profile/tags/posts.html' %}
+{% endif %}
+</body>
+</html>
