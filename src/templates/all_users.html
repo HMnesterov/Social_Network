@@ -1,20 +1,36 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'all_users.css' %}">
 </head>
 <body>
-<h1>{{request.user}}</h1>
-{% for user in users %}
-{% if user not in friends %}
-{{user}}
-      <a href="{% url 'friendship_add' id=user.id %} ">
-          <button type="button" class="btn btn-success">Send Friend Request</button>
-      </a>
-{% else %}
-{{user}} - already your friend
-{% endif %}
+
+
+<ul class="cards">
+    {% for user in users %}
+    <li class="cards__item">
+
+
+
+
+
+        <div class="card__image card__image--fence"></div>
+        <div class="card__content">
+            <div class="card__title">{{user.username}}</div>
+            <p class="card__text">{{user.bio}} </p>
+            {% if user not in friends %}
+            <a href="{% url 'friendship_add' id=user.id %} ">
+                <button type="button" class="btn btn--block card__btn">Send Friend Request</button>
+            </a>
+           {% endif %}
+
+        </div>
+        </div>
+    </li>
 {% endfor %}
+
+</ul>
 </body>
-</html>
