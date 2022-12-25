@@ -29,9 +29,8 @@ def accept_friendship_request(request, id):
         to_user.friends.add(from_user)
         from_user.friends.add(to_user)
         friend_request.delete()
-        return redirect('friendship_requests', id=id)
-    except Exception as e:
-
+        return redirect('friendship_requests')
+    except AttributeError:
         return HttpResponseBadRequest('404')
 
 
