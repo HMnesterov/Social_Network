@@ -19,12 +19,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #user_app
+    # user_app
     'user',
-    #friendship requests app
+    # friendship requests app
     'friendship',
-    #apps for user views
+    # apps for user views
     'user_profile',
+    # chat app
+    'private_chat',
+
 ]
 
 MIDDLEWARE = [
@@ -38,7 +41,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
-
 
 TEMPLATES = [
     {
