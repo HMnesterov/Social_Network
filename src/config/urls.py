@@ -8,12 +8,15 @@ from friendship import urls_friends
 from user import urls
 from user_profile import urls_profile
 from user_profile.views import news
+from private_chat import urls_chat
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include(urls)),
     path('friendship/', include(urls_friends)),
     path('', include(urls_profile)),
-    path('', news, name='news')
+    path('', news, name='news'),
+    path('', include(urls_chat))
+
 
 ]
 

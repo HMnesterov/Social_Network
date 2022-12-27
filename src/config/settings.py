@@ -13,6 +13,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -102,3 +103,15 @@ AUTH_USER_MODEL = 'user.Person'
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+ASGI_APPLICATION = "config.asgi.application"
+
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

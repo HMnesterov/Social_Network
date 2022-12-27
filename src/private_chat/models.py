@@ -13,6 +13,10 @@ class Message(models.Model):
         return self.author.username
 
 
+   # def last_50_messages(self):
+   #     return Message.objects.order_by('-timestamp').all()[:50]
+
+
 class Chat(models.Model):
     title = models.CharField(max_length=100)
     participants = models.ManyToManyField(AUTH_USER_MODEL, related_name='chats', blank=True)
