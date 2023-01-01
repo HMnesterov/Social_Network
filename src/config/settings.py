@@ -26,8 +26,7 @@ INSTALLED_APPS = [
     'friendship',
     # apps for user views
     'user_profile',
-    # chat app
-    'private_chat',
+
 
 ]
 

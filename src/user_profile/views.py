@@ -54,3 +54,8 @@ def news(request):
 
           return render(request, 'news.html', {'posts': posts})
     return render(request, 'news.html')
+
+
+
+def count_unique_page_visitors(request):
+    pass
