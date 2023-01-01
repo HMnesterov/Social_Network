@@ -11,16 +11,15 @@
 </head>
 <body>
 {% if request.user.is_authenticated %}
-
-<h1><center>News</center></h1>
-{% include 'interface/sidebar.html' %}
-{% if not posts %}
-<h1><center>There is no any news. You should add some people in your friends!</center></h1>
+     <h1><center>News</center></h1>
+     {% include 'interface/sidebar.html' %}
+           {% if not posts %}
+                 <h1><center>There is no any news. You should add some people in your friends!</center></h1>
+           {% else %}
+                  {% include 'profile/tags/posts.html' %}
+           {% endif %}
 {% else %}
-{% include 'profile/tags/posts.html' %}
-{% endif %}
-{% else %}
-<p class="p_non_log_text">To get started with the application, <a href="{% url 'register' %}">create your account</a></p>
+     <p class="p_non_log_text">To get started with the application, <a href="{% url 'register' %}">create your account</a></p>
 {% endif %}
 </body>
 </html>
