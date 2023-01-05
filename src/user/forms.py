@@ -15,7 +15,13 @@ class RegisterUserForm(UserCreationForm):
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='Login')
+    username = forms.CharField(label='Login', widget=forms.TextInput(attrs={'placeholder': "Username", 'style': '''form-control{background-color: #f8f9fa;
+  padding: 20px;
+  padding: 25px 15px;
+  margin-bottom: 1.3rem;}
+  
+  
+'''}))
     password = forms.CharField(label='Password')
 
     class Meta:

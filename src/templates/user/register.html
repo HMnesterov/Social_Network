@@ -1,19 +1,32 @@
 {% extends 'user/base.html' %}
-
+{% load static %}
 {% block title %}
 
 action<3
 
 {% endblock %}
 
+{% block js %}
+<link rel="stylesheet" href="{% static 'forms.css' %}">
+{% endblock %}
 
 {% block content %}
 
 
-<form method="post" enctype="multipart/form-data">
-{% csrf_token %}
+		<input type="checkbox" id="chk" aria-hidden="true">
+           <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
     {{form.as_p}}
 <button type="submit" class="form-button">OK</button>
 </form>
+Don't have an account? <a href="{% url 'register' %}">Sign in</a><br>
+Already have an account? <a href="{% url 'login' %}">Sign in</a>
+
+
+
+
+
+
+
 
 {% endblock %}

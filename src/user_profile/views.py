@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from user.models import Person
 from user_profile.forms import PostForm
@@ -24,7 +24,7 @@ def user_profile(request, id):
                 form.instance.where_published = user
                 form.instance.author = request.user
                 form.save()
-                form.clean()
+                return redirect('user_profile', id=id)
         return render(request, 'profile/profile.html', {'user': user, 'posts': posts, 'post_form': form, 'who_is_it': who_is_it})
     else:
         return render(request, 'profile/profile.html', {'user': user, 'posts': posts, 'post_form': None, 'who_is_it': 'Unknown person'})
