@@ -1,8 +1,12 @@
+import json
+
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 from user.models import Person
 from user_profile.forms import PostForm
+from user_profile.models import Post
 
 
 @login_required
@@ -59,3 +63,21 @@ def news(request):
 
 def count_unique_page_visitors(request):
     pass
+
+
+
+
+
+
+def like_button(request, post_id):
+
+    try:
+         post = get_object_or_404(Post, id=post_id)
+         post.likes += 1
+         post.save()
+         ctx = {"likes_count": post.likes,  "post_id": post_id}
+
+
+         return HttpResponse(json.dumps(ctx), content_type='application/json')
+    except Exception as e:
+        return HttpResponse('Error')
