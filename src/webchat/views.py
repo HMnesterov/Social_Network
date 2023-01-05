@@ -11,4 +11,4 @@ def enter_room(request):
 def room(request, room_name):
     if not request.user.is_authenticated:
         return redirect('login')
-    return render(request, 'chatroom.html', {'room_name': room_name, 'old_messages': '\nniggers: hello'})
+    return render(request, 'chat/chatroom.html', {'room_name': room_name, 'old_messages': '\nniggers: hello'})
