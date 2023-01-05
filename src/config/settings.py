@@ -22,10 +22,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # user_app
     'user',
+
     # friendship requests app
     'friendship',
+
     # apps for user views
     'user_profile',
+
+    #chat
+    'webchat',
+
 
 
 ]
@@ -108,9 +114,6 @@ ASGI_APPLICATION = "config.asgi.application"
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
-        },
-    },
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
