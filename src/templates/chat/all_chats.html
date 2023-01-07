@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% include 'interface/sidebar.html' %}
+{% for chat in chats %}
+<a href="{{chat.return_link}}">{{chat}}</a>
+{% endfor %}
+</body>
+</html>

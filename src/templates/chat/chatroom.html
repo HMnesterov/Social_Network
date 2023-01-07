@@ -38,11 +38,11 @@ Hello
 <input id="submit" type="button" class="btn btn-primary" value="send">
 </div>
 
-{{ room_name|json_script:"room-name"}}
+{{ room_id|json_script:"room-id"}}
 {{ request.user.username|json_script:"username" }}
 
 <script>
-     const roomName = JSON.parse(document.getElementById("room-name").textContent);
+     const roomID = JSON.parse(document.getElementById("room-id").textContent);
       const username = JSON.parse(document.getElementById("username").textContent);
     document.querySelector('#submit').onclick = function (e) {
         const messageInputDom = document.querySelector('#input');
@@ -50,7 +50,7 @@ Hello
         ChatSocket.send(JSON.stringify({
             'message': message,
             'username':username,
-            'chat_title': roomName
+            'chat_id': roomID
         }));
         messageInputDom.value = '';
 
@@ -59,7 +59,7 @@ Hello
 
 
     const ChatSocket = new WebSocket(
-        'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
+        'ws://' + window.location.host + '/ws/chat/current_chat/' + roomID + '/'
     );
 
     ChatSocket.onmessage = function (e) {
