@@ -22,8 +22,10 @@ Hello
 
 <div class="mb-3">
    <h1>Chat "{{room_name}}"</h1>
-  <textarea class="form-control" id="chat-messages" rows="15"  disabled>
-      {{old_messages}}
+  <textarea class="form-control" id="chat-messages" rows="20"  disabled>
+      {% for message in old_messages %}
+      {{message}}
+      {% endfor %}
   </textarea>
 </div>
 
@@ -48,6 +50,7 @@ Hello
         ChatSocket.send(JSON.stringify({
             'message': message,
             'username':username,
+            'chat_title': roomName
         }));
         messageInputDom.value = '';
 

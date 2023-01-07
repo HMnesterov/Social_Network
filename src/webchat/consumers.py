@@ -1,5 +1,12 @@
-from channels.generic.websocket import AsyncWebsocketConsumer
 import json
+
+from asgiref.sync import sync_to_async
+from channels.db import database_sync_to_async
+from channels.generic.websocket import AsyncWebsocketConsumer
+from django.shortcuts import get_object_or_404
+
+from user.models import Person
+from webchat.models import Chat, Message
 
 
 class ChatRoomConsumer(AsyncWebsocketConsumer):
@@ -24,8 +31,10 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         text_data_in_json = json.loads(text_data)
         message = text_data_in_json['message']
         username = text_data_in_json['username']
-        print(f"сообщение {message} от {username}")
+        chat_title = text_data_in_json['chat_title']
 
+
+        await self.post_message(message=message, username=username, chat_title=chat_title)
         await self.channel_layer.group_send(
             self.room_group_name,
             {'message': message,
@@ -36,4 +45,13 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event['message']
         username = event['username']
-        await self.send(text_data=json.dumps({'message': message, 'username': username,}))
+        await self.send(text_data=json.dumps({'message': message, 'username': username, }))
+
+
+    @database_sync_to_async
+    def post_message(self, message, username, chat_title):
+        guy = Person.objects.get(username=username)
+        chat = Chat.objects.get(title=chat_title)
+        if guy in chat.members.all():
+            Message.objects.create(text=message, author=guy, chat=chat)
+        print(f"сообщение {message} от {guy} в {chat_title}")

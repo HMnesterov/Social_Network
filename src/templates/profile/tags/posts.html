@@ -17,7 +17,7 @@
         </div>
         {% if posts %}
         {% for post in posts %}
-        {{post.id}}
+
 
 
 
@@ -45,7 +45,7 @@
                 <div class="timeline-content">
                     <p class="lead">
                         <i class="fa fa-quote-left fa-fw pull-left"></i>
-
+                         {{post.text}}
                         <i class="fa fa-quote-right fa-fw pull-right"></i>
                     </p>
                 </div>
@@ -121,8 +121,7 @@
 
                 {% endfor %}
 
-                {% else %}
-                Постов нет!
+
                 {% endif %}
         </li>
 
