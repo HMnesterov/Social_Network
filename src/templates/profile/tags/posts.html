@@ -93,25 +93,17 @@
     <script>
         // AJAX CALL
         function LikeButton(post_id) {
+
             var men_shoe_link =  'likes/' + post_id
+
             $.ajax({
                 type: "POST",
                 url: men_shoe_link,
                 data: {
-
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 },
                 dataType: "json",
-                success: function (response) {
-                    selector = document.getElementsByName(response.post_id);
-                    if (response.liked == true) {
-                        $(selector).css("color", "blue");
-                    } else if (response.liked == false) {
-                        $(selector).css("color", "black");
-                    }
 
-
-                }
 
             });
 
@@ -141,4 +133,4 @@
     </ul>
     <!-- end timeline -->
 
-
+</div>

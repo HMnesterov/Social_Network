@@ -70,7 +70,7 @@ def count_unique_page_visitors(request):
 
 
 def like_button(request, post_id):
-
+    print('like')
     try:
          post = get_object_or_404(Post, id=post_id)
          post.likes += 1

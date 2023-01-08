@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 {% endblock %}
 
@@ -16,12 +16,24 @@ Hello
 {% endblock %}
 
 {% block content %}
-
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 <div class="container">
 
 
 <div class="mb-3">
    <h1>Chat "{{room_name}}"</h1>
+    <a href="#" onclick="LikeButton(roomID)" id="hider" class="toggle-menu-btn show_search"><i class="fa fa-search"></i> <i class="fa fa-close"></i>Add Friend</a>
+    <div class="add-in-chat">
+        {% for person in new_persons %}
+        <a href="javascript:AddUser({{room_id}}, {{person.id}});">Add {{person}}</a>
+        {% endfor %}
+    </div>
+
+
   <textarea class="form-control" id="chat-messages" rows="20"  disabled>
       {% for message in old_messages %}
       {{message}}
@@ -35,7 +47,7 @@ Hello
 
 
 
-<input id="submit" type="button" class="btn btn-primary" value="send">
+<input id="submit" type="submit" class="btn btn-primary" value="send">
 </div>
 
 {{ room_id|json_script:"room-id"}}
@@ -47,13 +59,15 @@ Hello
     document.querySelector('#submit').onclick = function (e) {
         const messageInputDom = document.querySelector('#input');
         const message = messageInputDom.value;
-        ChatSocket.send(JSON.stringify({
-            'message': message,
-            'username':username,
-            'chat_id': roomID
-        }));
-        messageInputDom.value = '';
-
+        var msgval = message.length
+        if(msgval>0) {
+            ChatSocket.send(JSON.stringify({
+                'message': message,
+                'username': username,
+                'chat_id': roomID
+            }));
+            messageInputDom.value = '';
+        }
 
     };
 
@@ -80,6 +94,46 @@ Hello
 </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+</script>
+
+
+
+
+
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+
+
+
+ <script>
+        // AJAX CALL
+        function AddUser(chat_id, user_id) {
+
+            var men_shoe_link =  'http://127.0.0.1:8000/chat/current_chat/add_user/' + chat_id + '/' + user_id + '/'
+
+           $.ajax({
+                type: "GET",
+                url: men_shoe_link,
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                dataType: "json",
+
+
+            });
+
+        }
+
+    </script>
+
+
+<script>
+    document.getElementById('hider').onclick = function() {
+  document.getElementById('add-in-chat').classList.toggle('hidden');
+}
 </script>
 {% endblock %}
 
