@@ -16,6 +16,13 @@ class Chat(models.Model):
     def return_link(self):
         return reverse('chat-room', kwargs={'room_id': self.id})
 
+    def last_message(self):
+        try:
+            msg = self.chat_messages.all().order_by('-timestamp')[0]
+            return msg
+        except:
+            return 'Write your first words!'
+
 class Message(models.Model):
     text = models.CharField(max_length=500)
     author = models.ForeignKey(Person, related_name='messages', on_delete=models.CASCADE,)
