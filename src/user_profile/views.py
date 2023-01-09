@@ -29,9 +29,11 @@ def user_profile(request, id):
                 form.instance.author = request.user
                 form.save()
                 return redirect('user_profile', id=id)
-        return render(request, 'profile/profile.html', {'user': user, 'posts': posts, 'post_form': form, 'who_is_it': who_is_it})
+        return render(request, 'profile/profile.html',
+                      {'user': user, 'posts': posts, 'post_form': form, 'who_is_it': who_is_it})
     else:
-        return render(request, 'profile/profile.html', {'user': user, 'posts': posts, 'post_form': None, 'who_is_it': 'Unknown person'})
+        return render(request, 'profile/profile.html',
+                      {'user': user, 'posts': posts, 'post_form': None, 'who_is_it': 'Unknown person'})
 
 
 @login_required
@@ -44,40 +46,30 @@ def user_profile_friends(request, id):
         return render(request, 'profile/friends.html', {'user': user, 'friends': None})
 
 
-
-
 def news(request):
     if request.user.is_authenticated:
 
-          friends = request.user.friends.all()
-          posts = []
-          for friend in friends:
-              friend_posts = friend.return_posts.all()
-              posts += friend_posts
+        friends = request.user.friends.all()
+        posts = []
+        for friend in friends:
+            friend_posts = friend.return_posts.all()
+            posts += friend_posts
 
-
-          return render(request, 'news.html', {'posts': posts})
+        return render(request, 'news.html', {'posts': posts})
     return render(request, 'news.html')
-
 
 
 def count_unique_page_visitors(request):
     pass
 
 
-
-
-
-
 def like_button(request, post_id):
-    print('like')
     try:
-         post = get_object_or_404(Post, id=post_id)
-         post.likes += 1
-         post.save()
-         ctx = {"likes_count": post.likes,  "post_id": post_id}
+        post = get_object_or_404(Post, id=post_id)
+        post.likes += 1
+        post.save()
+        ctx = {"likes_count": post.likes, "post_id": post_id}
 
-
-         return HttpResponse(json.dumps(ctx), content_type='application/json')
+        return HttpResponse(json.dumps(ctx), content_type='application/json')
     except Exception as e:
         return HttpResponse('Error')

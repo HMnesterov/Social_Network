@@ -32,8 +32,9 @@ INSTALLED_APPS = [
 
     # chat
     'webchat',
-    # db test
-    'django_seed',
+
+    #notifications_app
+    'notifications'
 
 ]
 
@@ -118,3 +119,4 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
+DOMAIN = os.environ.get('DOMAIN')

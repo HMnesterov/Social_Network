@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-
+from config.settings import DOMAIN
 from user.models import Person
 from webchat.forms import CreateChatForm
 from webchat.models import Chat
@@ -18,19 +18,12 @@ def room(request, room_id):
     return render(request, 'chat/chatroom.html',
                   {'room_name': chat.title,
                    'old_messages': old_messages,
-                   'room_id': chat.id, 'new_persons': non_in_chat})
-
+                   'room_id': chat.id, 'new_persons': non_in_chat, 'domain': DOMAIN, 'chat_members': chat_members, 'admin': chat.admin})
 
 
 @login_required
 def all_chats(request):
-    chats = request.user.chats.all()
-    return render(request, 'chat/all_chats.html', {'chats': chats})
-
-@login_required
-def create_new_chat(request):
-    form = CreateChatForm()
-
+    form: CreateChatForm = CreateChatForm()
     if request.method == "POST":
         form = CreateChatForm(request.POST, request.FILES)
         if form.is_valid():
@@ -39,16 +32,25 @@ def create_new_chat(request):
             form.instance.members.add(request.user)
             form.save()
             return redirect('chats')
-    return render(request, 'chat/create_chat.html', {'form': form})
-
+    chats = request.user.chats.all()
+    return render(request, 'chat/all_chats.html', {'chats': chats, 'form': form})
 
 
 @login_required
 def add_new_user_to_chat(request, chat_id, user_id):
-
     user = get_object_or_404(Person, id=user_id)
     chat = get_object_or_404(Chat, id=chat_id)
     chat.members.add(user)
     chat.save()
     return JsonResponse({'thanks': "a lot"})
 
+
+
+
+@login_required
+def leave_from_chat(request, chat_id, user_id):
+    user = get_object_or_404(Person, id=user_id)
+    chat = get_object_or_404(Chat, id=chat_id)
+    chat.members.remove(user)
+    chat.save()
+    return JsonResponse({'thanks': "a lot"})

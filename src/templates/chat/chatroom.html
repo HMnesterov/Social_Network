@@ -16,51 +16,53 @@ Hello
 {% endblock %}
 
 {% block content %}
+
 <style>
-    .hidden {
+    .add-in-chat {
         display: none;
+        visibility: hidden;
     }
 </style>
+
 <div class="container">
 
 
-<div class="mb-3">
-   <h1>Chat "{{room_name}}"</h1>
-    <a href="#" onclick="LikeButton(roomID)" id="hider" class="toggle-menu-btn show_search"><i class="fa fa-search"></i> <i class="fa fa-close"></i>Add Friend</a>
-    <div class="add-in-chat">
-        {% for person in new_persons %}
-        <a href="javascript:AddUser({{room_id}}, {{person.id}});">Add {{person}}</a>
-        {% endfor %}
-    </div>
+    <div class="mb-3">
+        <h1>Chat "{{room_name}}"</h1>
 
+        <button onclick="LikeButton(roomID)" id="hider" class="toggle-menu-btn show_search">Add Friend</button>
+        <div id="add-in-chat">
+            {% for person in new_persons %}
+            <a href="javascript:AddUser({{room_id}}, {{person.id}});">Add {{person}}</a>
+            {% endfor %}
+        </div>
 
-  <textarea class="form-control" id="chat-messages" rows="20"  disabled>
+        <textarea class="form-control" id="chat-messages" rows="20" disabled>
       {% for message in old_messages %}
       {{message}}
       {% endfor %}
   </textarea>
-</div>
+    </div>
 
 
-
-<input id="input" type="text" size="146"></br>
-
+    <input id="input" type="text" size="146"></br>
 
 
-<input id="submit" type="submit" class="btn btn-primary" value="send">
+    <input id="submit" type="submit" class="btn btn-primary" value="send">
 </div>
 
 {{ room_id|json_script:"room-id"}}
 {{ request.user.username|json_script:"username" }}
+{{ domain|json_script:"domain" }}
 
 <script>
-     const roomID = JSON.parse(document.getElementById("room-id").textContent);
-      const username = JSON.parse(document.getElementById("username").textContent);
+    const roomID = JSON.parse(document.getElementById("room-id").textContent);
+    const username = JSON.parse(document.getElementById("username").textContent);
     document.querySelector('#submit').onclick = function (e) {
         const messageInputDom = document.querySelector('#input');
         const message = messageInputDom.value;
         var msgval = message.length
-        if(msgval>0) {
+        if (msgval > 0) {
             ChatSocket.send(JSON.stringify({
                 'message': message,
                 'username': username,
@@ -80,7 +82,7 @@ Hello
         const data = JSON.parse(e.data)
         console.log(data)
 
-        document.querySelector('#chat-messages').value += (data.username + ': ' +  data.message + '\n')
+        document.querySelector('#chat-messages').value += (data.username + ': ' + data.message + '\n')
 
     }
 </script>
@@ -97,44 +99,120 @@ Hello
 </script>
 
 
-
-
-
-
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-
-
-
-
- <script>
-        // AJAX CALL
-        function AddUser(chat_id, user_id) {
-
-            var men_shoe_link =  'http://127.0.0.1:8000/chat/current_chat/add_user/' + chat_id + '/' + user_id + '/'
-
-           $.ajax({
-                type: "GET",
-                url: men_shoe_link,
-                data: {
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                },
-                dataType: "json",
-
-
-            });
-
-        }
-
-    </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 <script>
-    document.getElementById('hider').onclick = function() {
-  document.getElementById('add-in-chat').classList.toggle('hidden');
+
+    function AddUser(chat_id, user_id) {
+        const domain = JSON.parse(document.getElementById("domain").textContent)
+        var men_shoe_link = '/chat/current_chat/add_user/' + chat_id + '/' + user_id + '/'
+        $.ajax({
+            type: "GET",
+            url: men_shoe_link,
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            dataType: "json",
+
+
+        });
+
+    }
+
+     function KickUser(chat_id, user_id) {
+        const domain = JSON.parse(document.getElementById("domain").textContent)
+        var men_shoe_link = '/chat/current_chat/delete_user/' + chat_id + '/' + user_id + '/'
+        $.ajax({
+            type: "GET",
+            url: men_shoe_link,
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            dataType: "json",
+
+
+        });
+
+    }
+
+</script>
+
+<script>
+    $("#hider").click(function () {
+        $("#add-in-chat").toggle();
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="menu">
+  <div class="title" onclick="f()">Kick users <span class="fa fa-bars"></span>
+    <div class="arrow"></div>
+  </div>
+  <div class="dropdown">
+      {% if request.user == admin %}
+    {% for person in chat_members %}
+      <p>    <a href="javascript:KickUser({{room_id}}, {{person.id}});">Kick {{person}}</a> </span>
+      {% endfor %}
+
+      {% else %}
+      <span><a href="javascript:KickUser({{room_id}}, {{request.user.id}});">Leave chat</a> </span>
+      {% endif %}
+
+
+  </div>
+</div>
+
+<style>
+    @import "https://fonts.googleapis.com/css?family=Montserrat";
+body{background:#ff7f50;font-family:'Montserrat',sans-serif}
+.menu{width:260px;margin:60px auto 0;cursor:pointer}
+.title{width:100%;box-sizing:border-box;background:#fff;padding:14px;border-radius:4px;position:relative;box-shadow:0 0 40px -10px #000;color:#505050}
+span{float:right;font-size:18px!important}
+.dropdown{width:100%;background:#fff;border-radius:4px;box-shadow:0 0 40px -10px #000;color:#505050;margin-top:24px;max-height:0;overflow:hidden;transition:all .5s}
+.down{max-height:150px}
+.arrow{border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid #fff;position:absolute;right:20px;bottom:-24px;display:none}
+.arrow.gone{display:block}
+p{padding:15px 14px;margin:0;transition:all .1s}
+p:hover{background:coral;-webkit-transform:scale(1.05);color:rgba(255,255,255,0.8);box-shadow:0 0 30px -10px #000}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function f() {
+  document.getElementsByClassName('dropdown')[0].classList.toggle('down');
+  document.getElementsByClassName('arrow')[0].classList.toggle('gone');
+  if (document.getElementsByClassName('dropdown')[0].classList.contains('down')) {
+    setTimeout(function() {
+      document.getElementsByClassName('dropdown')[0].style.overflow = 'visible'
+    }, 500)
+  } else {
+    document.getElementsByClassName('dropdown')[0].style.overflow = 'hidden'
+  }
 }
 </script>
+
+
+
 {% endblock %}
 
 

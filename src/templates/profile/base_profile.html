@@ -38,6 +38,10 @@
                                 {% if request.user == user %}
 
                                 <a href="#" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                                {% else %}
+                                {% if who_is_it != 'FRIEND' %}
+                                <a href="{% url 'friendship_add' id=user.id %} " class="btn btn-sm btn-info mb-2">Add to friends</a>
+                                {% endif %}
                                 {% endif %}
                             </div>
                             <!-- END profile-header-info -->
