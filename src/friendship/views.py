@@ -60,15 +60,23 @@ def remove_friend(request, id):
 
 
 @login_required
-def show_all_users(request):
-    friends = request.user.friends.all()
-
-    return render(request, 'users_list/all_users.html',
-                  {'users': Person.objects.all().exclude(id=request.user.id), 'friends': friends})
-
-
 def show_friendship_requests(request):
     user = request.user
     for_me = user.to_another_user.all()
     my_req = user.from_one_user.all()
     return render(request, 'users_list/friend_requests.html', {'requests': for_me})
+
+
+@login_required
+def entry_list(request,
+               template='users_list/all_users.html',
+               page_template='users_list/all_users_page.html'):
+    #USERS LIST WITH AJAX UPDATE
+    context = {
+        'users': Person.objects.all().exclude(id=request.user.id),
+        'friends': request.user.friends.all(),
+        'all_users_page': page_template,
+    }
+    if request.is_ajax():
+        template = page_template
+    return render(request, template, context)

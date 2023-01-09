@@ -14,6 +14,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'daphne',
+    'el_pagination',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,11 +30,10 @@ INSTALLED_APPS = [
     # apps for user views
     'user_profile',
 
-    #chat
+    # chat
     'webchat',
-
-
-
+    # db test
+    'django_seed',
 
 ]
 
@@ -60,6 +60,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+
             ],
         },
     },
@@ -110,8 +112,6 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 ASGI_APPLICATION = "config.asgi.application"
-
-
 
 CHANNEL_LAYERS = {
     "default": {

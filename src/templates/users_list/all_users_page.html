@@ -1,0 +1,17 @@
+ {% for user in users %}
+    <li class="cards__item">
+        <div class="card__image card__image--fence"></div>
+        <div class="card__content">
+            <div class="card__title"><a href="{{user.profile_link}}">{{user.username}}</a></div>
+            <p class="card__text">{{user.bio}} </p>
+            {% if user not in friends %}
+            <a href="{% url 'friendship_add' id=user.id %} ">
+                <button type="button" class="btn btn--block card__btn">Send Friend Request</button>
+            </a>
+
+           {% endif %}
+
+        </div>
+        </div>
+    </li>
+{% endfor %}

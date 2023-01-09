@@ -6,33 +6,28 @@
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'all_users.css' %}">
     <link rel="stylesheet" href="{% static 'sidebar.css' %}">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 20
+        });
+    </script>
 </head>
 <body>
 {% include 'interface/sidebar.html' %}
 
 <ul class="cards">
-    {% for user in users %}
-    <li class="cards__item">
+    {% load el_pagination_tags %}
+
+    {% paginate users %}
+    {% include all_users_page %}
 
 
-
-
-
-        <div class="card__image card__image--fence"></div>
-        <div class="card__content">
-            <div class="card__title"><a href="{{user.profile_link}}">{{user.username}}</a></div>
-            <p class="card__text">{{user.bio}} </p>
-            {% if user not in friends %}
-            <a href="{% url 'friendship_add' id=user.id %} ">
-                <button type="button" class="btn btn--block card__btn">Send Friend Request</button>
-            </a>
-
-           {% endif %}
-
-        </div>
-        </div>
-    </li>
-{% endfor %}
 
 </ul>
+<center>
+{% show_pages %}
+    </center>
 </body>
