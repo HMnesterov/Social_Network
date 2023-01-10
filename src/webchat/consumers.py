@@ -54,4 +54,3 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         guy = get_object_or_404(Person, username=username)
         chat = get_object_or_404(Chat, id=chat_id)
         Message.objects.create(text=message, author=guy, chat=chat)
-        print(f"сообщение {message} от {guy} в {chat_id}")

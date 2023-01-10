@@ -1,0 +1,123 @@
+<div class="table-responsive">
+    <table class="table table-profile">
+        <thead>
+        <tr>
+            <th></th>
+            <th>
+                <h4>{{user.username}}</h4>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="highlight">
+            <td class="field">Status</td>
+            <td><a href="javascript:;">{{user.status}}</a></td>
+        </tr>
+        <tr class="divider">
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="field">E-mail</td>
+            <td> {{user.email}} <a href="javascript:;" class="m-l-5"></a></td>
+        </tr>
+
+        <tr class="divider">
+            <td colspan="2"></td>
+        </tr>
+        <tr class="highlight">
+            <td class="field">About Me</td>
+            <td><a href="javascript:;">{{user.bio}}</a></td>
+        </tr>
+        <tr class="divider">
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td class="field">Country/Region</td>
+            <td>
+                <select class="form-control input-inline input-xs" name="region">
+                    <option value="US" selected="">United State</option>
+                    <option value="AF">Afghanistan</option>
+                    <option value="AL">Albania</option>
+                    <option value="DZ">Algeria</option>
+                    <option value="AS">American Samoa</option>
+                    <option value="AD">Andorra</option>
+                    <option value="AO">Angola</option>
+                    <option value="AI">Anguilla</option>
+                    <option value="AQ">Antarctica</option>
+                    <option value="AG">Antigua and Barbuda</option>
+                </select>
+            </td>
+        </tr>
+
+
+
+
+        <tr class="divider">
+            <td colspan="15"></td>
+        </tr>
+        <tr class="divider">
+            <td colspan="15"></td>
+        </tr>
+        <tr class="divider">
+            <td colspan="15"></td>
+        </tr>
+        <tr class="divider">
+            <td colspan="15"></td>
+        </tr>
+       <tr class="highlight">
+            <td class="field">Next form see only you:</td>
+            <td><a href="javascript:;">You can change your profile  for free</a></td>
+        </tr>
+
+        <tr class="divider">
+            <td colspan="15"></td>
+        </tr>
+        <tr class="divider">
+            <td colspan="15"></td>
+        </tr>
+        <tr class="divider">
+            <td colspan="15"></td>
+        </tr>
+        <tr class="divider">
+            <td colspan="15"></td>
+        </tr>
+
+
+
+
+
+
+
+         <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+             {% for f in form %}
+
+
+             <tr class="highlight">
+            <td class="field">{{f.label}}</td>
+            <td><a href="javascript:;">{{f}}</a></td>
+             </tr>
+
+
+             {% endfor %}
+              <tr class="highlight">
+            <td class="field">&nbsp;</td>
+            <td class="p-t-10 p-b-10">
+                <button type="submit" class="btn btn-primary width-150">Update</button>
+                <button type="submit" class="btn btn-white btn-white-without-border width-150 m-l-5">Cancel</button>
+            </td> </tr>
+             </form>
+        </tr>
+
+
+
+        </tbody>
+    </table>
+</div>
+<!-- end table -->
+</div>
+<!-- end #profile-about tab -->
+</div>
+<!-- end tab-content -->
+</div>
+<!-- end profile-content -->

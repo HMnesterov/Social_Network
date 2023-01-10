@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 from user.models import Person
-from user_profile.forms import PostForm
+from user_profile.forms import PostForm, UserProfileEdit
 from user_profile.models import Post
 
 
@@ -73,3 +73,21 @@ def like_button(request, post_id):
         return HttpResponse(json.dumps(ctx), content_type='application/json')
     except Exception as e:
         return HttpResponse('Error')
+
+
+@login_required
+def user_profile_edit(request, id):
+    user = get_object_or_404(Person, id=id)
+    form = UserProfileEdit(initial={'photo': user.photo, 'status': user.status, 'bio': user.bio})
+
+
+
+    if request.method == "POST":
+        form = UserProfileEdit(request.POST, request.FILES)
+        if form.is_valid():
+            user.status = form.cleaned_data['status']
+            user.bio = form.cleaned_data['bio']
+            user.photo = form.cleaned_data['photo']
+            user.save()
+            return redirect('user_profile_edit', id=user.id)
+    return render(request, 'profile/edit_profile.html', {'form': form})
