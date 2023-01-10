@@ -64,6 +64,8 @@
         <tr class="divider">
             <td colspan="15"></td>
         </tr>
+
+        {% if admin %}
        <tr class="highlight">
             <td class="field">Next form see only you:</td>
             <td><a href="javascript:;">You can change your profile  for free</a></td>
@@ -104,12 +106,12 @@
             <td class="field">&nbsp;</td>
             <td class="p-t-10 p-b-10">
                 <button type="submit" class="btn btn-primary width-150">Update</button>
-                <button type="submit" class="btn btn-white btn-white-without-border width-150 m-l-5">Cancel</button>
+                <button type="reset" class="btn btn-white btn-white-without-border width-150 m-l-5">Cancel</button>
             </td> </tr>
              </form>
         </tr>
 
-
+       {% endif %}
 
         </tbody>
     </table>

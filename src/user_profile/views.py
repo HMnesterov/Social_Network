@@ -79,6 +79,7 @@ def like_button(request, post_id):
 def user_profile_edit(request, id):
     user = get_object_or_404(Person, id=id)
     form = UserProfileEdit(initial={'photo': user.photo, 'status': user.status, 'bio': user.bio})
+    admin = True if request.user == user else False
 
 
 
@@ -90,4 +91,4 @@ def user_profile_edit(request, id):
             user.photo = form.cleaned_data['photo']
             user.save()
             return redirect('user_profile_edit', id=user.id)
-    return render(request, 'profile/edit_profile.html', {'form': form})
+    return render(request, 'profile/edit_profile.html', {'form': form, 'admin': admin, 'user': user})

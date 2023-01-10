@@ -37,7 +37,7 @@
                                 <p class="m-b-10">{{who_is_it}}</p>
                                 {% if request.user == user %}
 
-                                <a href="#" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                                <a href="{% url 'user_profile_edit' id=user.id %}" class="btn btn-sm btn-info mb-2">Edit Profile</a>
                                 {% else %}
                                 {% if who_is_it != 'FRIEND' %}
                                 <a href="{% url 'friendship_add' id=user.id %} " class="btn btn-sm btn-info mb-2">Add to friends</a>
@@ -52,8 +52,8 @@
                             <li class="nav-item"><a
                                     href="{% url 'user_profile' id=user.id %}"
                                      class="nav-link_">POSTS</a></li>
-                            <li class="nav-item"><a href=""
-                                                     class="nav-link_">ABOUT</a></>
+                            <li class="nav-item"><a href="{% url 'user_profile_edit' id=user.id %}"
+                                                    class="nav-link_">ABOUT</a></li>
                             <li class="nav-item"><a href=""
                                                      class="nav-link_">PHOTOS</a></li>
                             <li class="nav-item"><a href=""
