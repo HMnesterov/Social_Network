@@ -1,3 +1,7 @@
 /venv/
 /.idea/
 /src.media/
+
+.env
+src/media
+src/db.sqlite3
