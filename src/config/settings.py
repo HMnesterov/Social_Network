@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     # chat
     'webchat',
 
-    #notifications_app
+    # notifications_app
     'notifications'
 
 ]
@@ -106,7 +106,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'static'),
+
 ]
 AUTH_USER_MODEL = 'user.Person'
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))

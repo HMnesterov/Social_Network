@@ -88,7 +88,8 @@ def user_profile_edit(request, id):
         if form.is_valid():
             user.status = form.cleaned_data['status']
             user.bio = form.cleaned_data['bio']
-            user.photo = form.cleaned_data['photo']
+            if form.cleaned_data['photo'] != 'photo':
+                user.photo = form.cleaned_data['photo']
             user.save()
             return redirect('user_profile_edit', id=user.id)
     return render(request, 'profile/edit_profile.html', {'form': form, 'admin': admin, 'user': user})
