@@ -18,7 +18,7 @@ class Chat(models.Model):
 
     def last_message(self):
         try:
-            msg = self.chat_messages.all().order_by('-timestamp')[0]
+            msg = self.chat_messages.all().latest('timestamp')
             return msg
         except:
             return 'Write your first words!'

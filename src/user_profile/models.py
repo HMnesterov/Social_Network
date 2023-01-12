@@ -9,7 +9,7 @@ class Property(models.Model):
 
 
 class Post(models.Model):
-    # Post model for user`s profile
+    # Post model for user profile
     created_date = models.DateField(auto_now_add=True)
     created_time = models.TimeField(auto_now_add=True)
     text = models.TextField(max_length=1500)
