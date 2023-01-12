@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load notifications_tags %}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Icon Button Notification Badge</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'alerts.css' %}">
+
 </head>
 
 <body>
-  <button type="button" class="icon-button">
+{% get_last_notifications request as last_alerts %}
+<div class="dropdown">
+    <button type="button" class="icon-button">
     <span class="material-icons">notifications</span>
-    <span class="icon-button__badge">2</span>
-  </button>
+    <span class="icon-button__badge">{{last_alerts.count}}</span>
+  <div class="dropdown-content">
+      {% for notif in last_alerts.objects %}
+  <a href="#">{{notif.text}}</a>
+      {% endfor %}
+
+  </div>
+</div>
+
+
 </body>
 
+
+
+
+
 </html>
+

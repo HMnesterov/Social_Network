@@ -33,7 +33,8 @@ def send_notification_to_page_owner_where_post_has_been_published(sender, instan
 def send_notification_to_chat_members_about_new_message(sender, instance, created, *args, **kwargs):
     author = instance.author
     chat = instance.chat
-    receivers = chat.members.all()
+    receivers = chat.members.exclude(id=author.id)
+
     message = f"User {author} sent a message in {chat}"
     for receiver in receivers:
         Notification.objects.create(user=receiver, text=message)

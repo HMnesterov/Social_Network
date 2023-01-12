@@ -3,12 +3,12 @@ body {
 }
 
 .icon-button {
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   color: #333333;
   background: #dddddd;
   border: none;
@@ -37,4 +37,39 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+}
+
+
+
+
+
+
+
+.dropdown {
+  display: inline-block;
+  position: absolute;
+  right:1%;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 100%;
+  margin: 10px 50px 70px 50px;
+
+  box-shadow: 1px 10px 10px 0px rgba(0,0,0,0.4);
+}
+.dropdown:hover .dropdown-content {
+  margin-top: 700px;
+  display: block;
+  float:right;
+}
+.dropdown-content a {
+  display: block;
+  color: #000000;
+  padding: 10px;
+  text-decoration: none;
+}
+.dropdown-content a:hover {
+  color: #FFFFFF;
+  background-color: #00A4BD;
 }
