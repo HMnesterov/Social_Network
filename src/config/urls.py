@@ -15,7 +15,7 @@ urlpatterns = [
     path('friendship/', include(urls_friends)),
     path('', include(urls_profile)),
     path('', news, name='news'),
-    path('chat/', include(urls_webchat))
+    path('chat/', include(urls_webchat)),
 
 
 

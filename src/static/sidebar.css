@@ -135,3 +135,22 @@ height: 100%;
 
 
 
+
+
+
+
+
+
+
+/*
+
+Notifications count))
+
+ */
+
+
+
+ul.dots > li:hover > a > span > mark.rubberBand {
+  -webkit-animation-name: rubberBand;
+          animation-name: rubberBand;
+}

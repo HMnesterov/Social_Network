@@ -3,9 +3,6 @@ from django.db import models
 from django.contrib.auth.models import UserManager
 from django.urls import reverse
 
-
-#class
-
 class Person(AbstractUser):
     photo = models.ImageField(blank=True, upload_to='users/users_main_photos/',
                               default='users/users_main_photos/default.jpg')

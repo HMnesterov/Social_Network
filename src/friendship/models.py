@@ -1,5 +1,4 @@
 from django.db import models
-
 from user.models import Person
 
 
@@ -16,8 +15,9 @@ class Friendship(models.Model):
     def return_time_created(self):
         return f"This application has been sent at {self.time_created}"
 
-    def get_sender_id(self):
-        return self.from_user.pk
 
-    def get_receiver_id(self):
-        return self.to_user.pk
+
+
+
+
+
