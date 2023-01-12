@@ -1,6 +1,4 @@
 from django import forms
-
-from user.models import Person
 from user_profile.models import Post
 
 

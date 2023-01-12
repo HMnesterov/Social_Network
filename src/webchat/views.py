@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from config.settings import DOMAIN
+
 from user.models import Person
 from webchat.forms import CreateChatForm
 from webchat.models import Chat
@@ -18,7 +18,7 @@ def room(request, room_id):
     return render(request, 'chat/chatroom.html',
                   {'room_name': chat.title,
                    'old_messages': old_messages,
-                   'room_id': chat.id, 'new_persons': non_in_chat, 'domain': DOMAIN, 'chat_members': chat_members, 'admin': chat.admin})
+                   'room_id': chat.id, 'new_persons': non_in_chat, 'chat_members': chat_members, 'admin': chat.admin})
 
 
 @login_required
@@ -40,17 +40,20 @@ def all_chats(request):
 def add_new_user_to_chat(request, chat_id, user_id):
     user = get_object_or_404(Person, id=user_id)
     chat = get_object_or_404(Chat, id=chat_id)
+    if not (request.user in chat.members.all()):
+        return redirect('chats')
     chat.members.add(user)
     chat.save()
     return JsonResponse({'thanks': "a lot"})
 
 
-
-
 @login_required
 def leave_from_chat(request, chat_id, user_id):
+
     user = get_object_or_404(Person, id=user_id)
     chat = get_object_or_404(Chat, id=chat_id)
+    if not (request.user == user or chat.admin == request.user):
+        return redirect('chats')
     chat.members.remove(user)
     chat.save()
     return JsonResponse({'thanks': "a lot"})
