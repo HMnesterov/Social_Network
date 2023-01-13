@@ -10,6 +10,8 @@ class Chat(models.Model):
     members = models.ManyToManyField(Person,  related_name='chats', )
     admin = models.ForeignKey(Person, blank=True, null=True, on_delete=models.PROTECT, related_name='admin')
 
+
+
     def __str__(self):
         return f"Chat {self.title}"
 
@@ -17,11 +19,10 @@ class Chat(models.Model):
         return reverse('chat-room', kwargs={'room_id': self.id})
 
     def last_message(self):
-        try:
-            msg = self.chat_messages.all().latest('timestamp')
-            return msg
-        except:
-            return 'Write your first words!'
+        msg = self.chat_messages.select_related('author').all().latest('timestamp')
+        return msg if msg else 'Write your first words!'
+
+
 
 class Message(models.Model):
     text = models.CharField(max_length=500)

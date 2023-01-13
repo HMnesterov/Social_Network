@@ -14,7 +14,7 @@ def chatroom_page(request, room_id):
     if request.user not in chat_members:
         return redirect('user_profile', id=request.user.id)
     non_in_chat = request.user.friends.exclude(id__in=[i.id for i in chat_members])
-    old_messages = chat.chat_messages.all()
+    old_messages = chat.chat_messages.select_related('author').all()
     return render(request, 'chat/chatroom.html',
                   {'room_name': chat.title,
                    'old_messages': old_messages,
