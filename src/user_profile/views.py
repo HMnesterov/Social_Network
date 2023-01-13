@@ -40,7 +40,7 @@ def user_profile(request, id):
 
 @login_required
 def user_profile_friends(request, id):
-    user = get_object_or_404(Person, id=id)
+    user = Person.objects.prefetch_related('friends').get(id=id)
     try:
         friends = user.friends.all()
         return render(request, 'profile/friends.html', {'user': user, 'friends': friends})
