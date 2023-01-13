@@ -8,7 +8,7 @@ from webchat.models import Chat
 
 
 @login_required
-def room(request, room_id):
+def chatroom_page(request, room_id):
     chat = get_object_or_404(Chat, id=room_id)
     chat_members = chat.members.all()
     if request.user not in chat_members:
@@ -22,7 +22,7 @@ def room(request, room_id):
 
 
 @login_required
-def all_chats(request):
+def all_chats_where_current_user_participate_in(request):
     form: CreateChatForm = CreateChatForm()
     if request.method == "POST":
         form = CreateChatForm(request.POST, request.FILES)
@@ -48,7 +48,7 @@ def add_new_user_to_chat(request, chat_id, user_id):
 
 
 @login_required
-def leave_from_chat(request, chat_id, user_id):
+def leave_from_current_chat(request, chat_id, user_id):
 
     user = get_object_or_404(Person, id=user_id)
     chat = get_object_or_404(Chat, id=chat_id)

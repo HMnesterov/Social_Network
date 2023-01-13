@@ -68,7 +68,7 @@ def show_friendship_requests(request):
 
 
 @login_required
-def entry_list(request,
+def all_users_list_with_dynamic_ajax_update(request,
                template='users_list/all_users.html',
                page_template='users_list/all_users_page.html'):
     #USERS LIST WITH AJAX UPDATE

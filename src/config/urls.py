@@ -7,10 +7,10 @@ from user_profile.views import news
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
-    path('friendship/', include('friendship.urls_friends')),
-    path('', include('user_profile.urls_profile')),
+    path('friendship/', include('friendship.urls')),
+    path('', include('user_profile.urls')),
     path('', news, name='news'),
-    path('chat/', include('webchat.urls_webchat')),
+    path('chat/', include('webchat.urls')),
 
 ]
 

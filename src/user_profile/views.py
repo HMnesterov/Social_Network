@@ -11,12 +11,14 @@ from user_profile.models import Post
 
 @login_required
 def user_profile(request, id):
+    # Display unique user profile
     user = get_object_or_404(Person, id=id)
     try:
         posts = user.where_published.all().select_related('author').order_by('created_date', 'created_time').reverse()
     except AttributeError:
         posts = None
-    if request.user == user or request.user in user.friends.all():
+    if request.user == user or request.user in user.friends.all():  # Detect who is request user for page owner (
+        # permission to make a new post)
         if request.user == user:
             who_is_it = 'You'
         else:
@@ -63,7 +65,7 @@ def count_unique_page_visitors(request):
     pass
 
 
-def like_button(request, post_id):
+def post_like_button(request, post_id):
     try:
         post = get_object_or_404(Post, id=post_id)
         post.likes += 1
@@ -77,11 +79,10 @@ def like_button(request, post_id):
 
 @login_required
 def user_profile_edit(request, id):
+    #User profile part where owner can edit things like bio and photo
     user = get_object_or_404(Person, id=id)
     form = UserProfileEdit(initial={'photo': user.photo, 'status': user.status, 'bio': user.bio})
     admin = True if request.user == user else False
-
-
 
     if request.method == "POST":
         form = UserProfileEdit(request.POST, request.FILES)
