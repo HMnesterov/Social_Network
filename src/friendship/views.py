@@ -1,7 +1,7 @@
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import  HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
+from django.db import transaction
 from .models import Friendship
 from user.models import Person
 
@@ -21,6 +21,7 @@ def send_friendship_request(request, id):
 
 
 @login_required
+@transaction.atomic()
 def accept_friendship_request(request, id):
     to_user = request.user
     from_user = get_object_or_404(Person, id=id)
@@ -47,6 +48,7 @@ def reject_friendship_request(request, id):
 
 
 @login_required
+@transaction.atomic()
 def remove_friend(request, id):
     user1 = request.user
     user2 = get_object_or_404(Person, id=id)
