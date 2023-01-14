@@ -16,9 +16,6 @@ class Person(AbstractUser):
         return reverse('user_profile', kwargs={'id': self.id})
 
 
-    def valid_photo_url(self):
-        return "http://127.0.0.1:8000/" + 'media/' + f'{self.photo}'
-
 
 
 
