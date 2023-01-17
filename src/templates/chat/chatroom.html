@@ -1,200 +1,149 @@
 {% extends 'chat/base.html' %}
-{%  load static %}
+{% load static %}
 {% block css_js %}
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{% static 'chat.css' %}">
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 
 {% endblock %}
 
 
 {% block title %}
 
-Hello
+    Hello
 {% endblock %}
 
 {% block content %}
 
 
 
-<div class="container">
+    <div class="container">
 
 
-    <div class="mb-3">
-        <h1>Chat "{{room_name}}"</h1>
+        <div class="mb-3">
+            <h1>Chat "{{ room_name }}"</h1>
 
-        <button onclick="LikeButton(roomID)" id="hider" class="toggle-menu-btn show_search">Add Friend</button>
-        <div id="add-in-chat">
-            {% for person in new_persons %}
-            <a href="javascript:AddUser({{room_id}}, {{person.id}});">Add {{person}}</a>
-            {% endfor %}
-        </div>
+            <button id="hider" class="toggle-menu-btn show_search">Add Friend</button>
+            <div id="add-in-chat">
+                {% for person in new_persons %}
+                    <a href="javascript:AddUserInChat({{ room_id }}, {{ person.id }});">Add {{ person }}</a>
+                {% endfor %}
+            </div>
 
-        <textarea class="form-control" id="chat-messages" rows="20" disabled>
+            <textarea class="form-control" id="chat-messages" rows="20" disabled>
       {% for message in old_messages %}
-      {{message}}
+          {{ message }}
       {% endfor %}
   </textarea>
+        </div>
+
+
+        <input id="input" type="text" size="146"></br>
+
+
+        <input id="submit" type="submit" class="btn btn-primary" value="send">
+    </div>
+
+    {{ room_id|json_script:"room-id" }}
+    {{ request.user.username|json_script:"username" }}
+
+
+
+
+
+
+
+    <script>
+
+
+    </script>
+
+    <script>
+        $("#hider").click(function () {
+            $("#add-in-chat").toggle();
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="menu">
+        <div class="title" onclick="f()">Kick users <span class="fa fa-bars"></span>
+            <div class="arrow"></div>
+        </div>
+        <div class="dropdown">
+            {% if request.user == admin %}
+                {% for person in chat_members %}
+                    <p>    <a href="javascript:KickUserFromChat({{ room_id }}, {{ person.id }});">Kick {{ person }}</a>
+                    </span>
+                {% endfor %}
+
+            {% else %}
+                <span><a
+                        href="javascript:KickUserFromChat({{ room_id }}, {{ request.user.id }});">Leave chat</a> </span>
+            {% endif %}
+
+
+        </div>
     </div>
 
 
-    <input id="input" type="text" size="146"></br>
 
 
-    <input id="submit" type="submit" class="btn btn-primary" value="send">
-</div>
+     <script src="{%  static 'js/websocket_chat.js' %}"></script>
 
-{{ room_id|json_script:"room-id"}}
-{{ request.user.username|json_script:"username" }}
+    <script src="{%  static 'js/kick_and_add_in_chat_functions.js' %}"></script>
 
-<script>
-    const roomID = JSON.parse(document.getElementById("room-id").textContent);
-    const username = JSON.parse(document.getElementById("username").textContent);
-    document.querySelector('#submit').onclick = function (e) {
-        const messageInputDom = document.querySelector('#input');
-        const message = messageInputDom.value;
-        var msgval = message.length
-        if (msgval > 0) {
-            ChatSocket.send(JSON.stringify({
-                'message': message,
-                'username': username,
-                'chat_id': roomID
-            }));
-            messageInputDom.value = '';
+
+
+
+
+
+
+
+
+
+
+    <script>
+        function f() {
+            document.getElementsByClassName('dropdown')[0].classList.toggle('down');
+            document.getElementsByClassName('arrow')[0].classList.toggle('gone');
+            if (document.getElementsByClassName('dropdown')[0].classList.contains('down')) {
+                setTimeout(function () {
+                    document.getElementsByClassName('dropdown')[0].style.overflow = 'visible'
+                }, 500)
+            } else {
+                document.getElementsByClassName('dropdown')[0].style.overflow = 'hidden'
+            }
         }
-
-    };
-
-
-    const ChatSocket = new WebSocket(
-        'ws://' + window.location.host + '/ws/chat/current_chat/' + roomID + '/'
-    );
-
-    ChatSocket.onmessage = function (e) {
-        const data = JSON.parse(e.data)
-        console.log(data)
-
-        document.querySelector('#chat-messages').value += (data.username + ': ' + data.message + '\n')
-
-    }
-</script>
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-</script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
-</script>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-<script>
-
-    function AddUser(chat_id, user_id) {
-
-        var men_shoe_link = '/chat/current_chat/add_user/' + chat_id + '/' + user_id + '/'
-        $.ajax({
-            type: "GET",
-            url: men_shoe_link,
-            data: {
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            dataType: "json",
-
-
-        });
-
-    }
-
-     function KickUser(chat_id, user_id) {
-
-        var men_shoe_link = '/chat/current_chat/delete_user/' + chat_id + '/' + user_id + '/'
-        $.ajax({
-            type: "GET",
-            url: men_shoe_link,
-            data: {
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            dataType: "json",
-
-
-        });
-
-    }
-
-</script>
-
-<script>
-    $("#hider").click(function () {
-        $("#add-in-chat").toggle();
-    });
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="menu">
-  <div class="title" onclick="f()">Kick users <span class="fa fa-bars"></span>
-    <div class="arrow"></div>
-  </div>
-  <div class="dropdown">
-      {% if request.user == admin %}
-    {% for person in chat_members %}
-      <p>    <a href="javascript:KickUser({{room_id}}, {{person.id}});">Kick {{person}}</a> </span>
-      {% endfor %}
-
-      {% else %}
-      <span><a href="javascript:KickUser({{room_id}}, {{request.user.id}});">Leave chat</a> </span>
-      {% endif %}
-
-
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-    function f() {
-  document.getElementsByClassName('dropdown')[0].classList.toggle('down');
-  document.getElementsByClassName('arrow')[0].classList.toggle('gone');
-  if (document.getElementsByClassName('dropdown')[0].classList.contains('down')) {
-    setTimeout(function() {
-      document.getElementsByClassName('dropdown')[0].style.overflow = 'visible'
-    }, 500)
-  } else {
-    document.getElementsByClassName('dropdown')[0].style.overflow = 'hidden'
-  }
-}
-</script>
+    </script>
 
 
 
