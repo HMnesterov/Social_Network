@@ -50,14 +50,37 @@
             </div>
 
             <textarea class="form-control" id="chat-messages" rows="20" disabled>
-      {% for message in old_messages %}
-          {{ message }}
-      {% endfor %}
+
+
+
   </textarea>
+
+
+    <script>
+function add_old_message_to_textbox (){
+    var messages = [
+        {% for message in old_messages %}
+        "{{ message }}",
+        {% endfor %}
+    ]
+     console.log(messages)
+    for (indx in messages) {
+
+
+        document.querySelector('#chat-messages').value += ('\n' + messages[indx] + '\n')
+    }
+}
+</script>
+
+<script>
+    add_old_message_to_textbox()
+</script>
+
+
         </div>
 
 
-        <input id="input" type="text" size="146"></br>
+        <input id="input" type="text" size="121"></br>
 
 
         <input id="submit" type="submit" class="btn btn-primary" value="send">
@@ -144,6 +167,8 @@
             }
         }
     </script>
+
+
 
 
 
