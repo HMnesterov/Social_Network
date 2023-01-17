@@ -1,9 +1,12 @@
 {% extends 'chat/base.html' %}
-
+{%  load static %}
 {% block css_js %}
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'chat.css' %}">
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -48,7 +51,6 @@ Hello
 
 {{ room_id|json_script:"room-id"}}
 {{ request.user.username|json_script:"username" }}
-{{ domain|json_script:"domain" }}
 
 <script>
     const roomID = JSON.parse(document.getElementById("room-id").textContent);
@@ -100,7 +102,7 @@ Hello
 <script>
 
     function AddUser(chat_id, user_id) {
-        const domain = JSON.parse(document.getElementById("domain").textContent)
+
         var men_shoe_link = '/chat/current_chat/add_user/' + chat_id + '/' + user_id + '/'
         $.ajax({
             type: "GET",
@@ -116,7 +118,7 @@ Hello
     }
 
      function KickUser(chat_id, user_id) {
-        const domain = JSON.parse(document.getElementById("domain").textContent)
+
         var men_shoe_link = '/chat/current_chat/delete_user/' + chat_id + '/' + user_id + '/'
         $.ajax({
             type: "GET",
@@ -168,19 +170,7 @@ Hello
   </div>
 </div>
 
-<style>
-    @import "https://fonts.googleapis.com/css?family=Montserrat";
-body{background:#ff7f50;font-family:'Montserrat',sans-serif}
-.menu{width:260px;margin:60px auto 0;cursor:pointer}
-.title{width:100%;box-sizing:border-box;background:#fff;padding:14px;border-radius:4px;position:relative;box-shadow:0 0 40px -10px #000;color:#505050}
-span{float:right;font-size:18px!important}
-.dropdown{width:100%;background:#fff;border-radius:4px;box-shadow:0 0 40px -10px #000;color:#505050;margin-top:24px;max-height:0;overflow:hidden;transition:all .5s}
-.down{max-height:150px}
-.arrow{border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid #fff;position:absolute;right:20px;bottom:-24px;display:none}
-.arrow.gone{display:block}
-p{padding:15px 14px;margin:0;transition:all .1s}
-p:hover{background:coral;-webkit-transform:scale(1.05);color:rgba(255,255,255,0.8);box-shadow:0 0 30px -10px #000}
-</style>
+
 
 
 
