@@ -12,6 +12,7 @@ urlpatterns = [
     path('', news, name='news'),
     path('chat/', include('webchat.urls')),
 
+
 ]
 
 if settings.DEBUG:

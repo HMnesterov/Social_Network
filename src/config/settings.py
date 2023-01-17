@@ -13,6 +13,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+
+
+
+
+
     'daphne',
     'el_pagination',
     'django.contrib.admin',
@@ -34,7 +39,13 @@ INSTALLED_APPS = [
     'webchat',
 
     # notifications_app
-    'notifications'
+    'notifications',
+
+
+
+    
+
+
 
 ]
 
@@ -46,6 +57,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
+
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -119,4 +134,10 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
-DOMAIN = os.environ.get('DOMAIN')
+
+
+
+
+
+
+

@@ -13,12 +13,15 @@ def chatroom_page(request, room_id):
     chat_members = chat.members.all()
     if request.user not in chat_members:
         return redirect('user_profile', id=request.user.id)
-    non_in_chat = request.user.friends.exclude(id__in=[i.id for i in chat_members])
+    friends_that_dont_participate_in_chat = request.user.friends.exclude(id__in=[i.id for i in chat_members])
     old_messages = chat.chat_messages.select_related('author').all()
+
+
     return render(request, 'chat/chatroom.html',
                   {'room_name': chat.title,
                    'old_messages': old_messages,
-                   'room_id': chat.id, 'new_persons': non_in_chat, 'chat_members': chat_members, 'admin': chat.admin})
+                   'room_id': chat.id, 'new_persons': friends_that_dont_participate_in_chat,
+                   'chat_members': chat_members, 'admin': chat.admin})
 
 
 @login_required
@@ -49,7 +52,6 @@ def add_new_user_to_chat(request, chat_id, user_id):
 
 @login_required
 def leave_from_current_chat(request, chat_id, user_id):
-
     user = get_object_or_404(Person, id=user_id)
     chat = get_object_or_404(Chat, id=chat_id)
     if not (request.user == user or chat.admin == request.user):
