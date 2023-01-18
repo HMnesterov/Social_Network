@@ -25,5 +25,6 @@ const roomID = JSON.parse(document.getElementById("room-id").textContent);
         console.log(data)
 
         document.querySelector('#chat-messages').value += (data.username + ': ' + data.message + '\n')
+        scroll_down_textarea()
 
     }

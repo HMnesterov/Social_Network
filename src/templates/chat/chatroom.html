@@ -57,6 +57,12 @@
 
 
     <script>
+    function scroll_down_textarea(){
+         $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+    }
+
+
+
 function add_old_message_to_textbox (){
     var messages = [
         {% for message in old_messages %}
@@ -69,6 +75,8 @@ function add_old_message_to_textbox (){
 
         document.querySelector('#chat-messages').value += ('\n' + messages[indx] + '\n')
     }
+   scroll_down_textarea()
+
 }
 </script>
 
