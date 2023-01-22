@@ -1,6 +1,53 @@
 {% extends 'profile/base_profile.html' %}
-
+{% load static %}
+{%  block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{% static 'js/el-pagination.js' %}"></script>
+{%  endblock %}
 {% block posts %}
+
+<div class="tab-pane fade active show" id="profile-post">
+    <!-- begin timeline -->
+    <ul class="timeline">
+        <li>
+            <!-- start posts -->
+        </li>
+        <div class="timeline-body">
+
+            {% if post_form %}
+                CREATE NEW POST
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ post_form.as_p }}
+                    <button type="submit" class="form-button">OK</button>
+                </form>
+            {% endif %}
+        </div>
+
 {% include 'profile/tags/posts.html' %}
+
+
+
+
+
+
+
+<li>
+            <!-- begin timeline-icon -->
+            <div class="timeline-icon">
+                <a href="javascript:;">&nbsp;</a>
+            </div>
+            <!-- end timeline-icon -->
+            <!-- begin timeline-body -->
+            <div class="timeline-body">
+                Loading...
+            </div>
+            <!-- begin timeline-body -->
+        </li>
+
+
+
+
 
 {% endblock %}
