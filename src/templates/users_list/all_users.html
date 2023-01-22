@@ -6,28 +6,36 @@
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'all_users.css' %}">
     <link rel="stylesheet" href="{% static 'sidebar.css' %}">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
 
-    <script>
-        $.endlessPaginate({
-            paginateOnScroll: true,
-            paginateOnScrollMargin: 20
-        });
-    </script>
+
+
 </head>
 <body>
 {% include 'interface/sidebar.html' %}
 {% include 'interface/notifications.html' %}
 <ul class="cards">
-    {% load el_pagination_tags %}
 
-    {% paginate users %}
+
+
     {% include all_users_page %}
 
 
 
 </ul>
-<center>
-{% show_pages %}
-    </center>
+
+
+
+
+
+ <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{%  static 'js/el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollChunkSize: 5
+        });
+    </script>
 </body>
+
+
+

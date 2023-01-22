@@ -1,4 +1,6 @@
- {% for user in users %}
+{% load el_pagination_tags %}
+{% paginate users %}
+{% for user in users %}
     <li class="cards__item">
         <div class="card__image card__image--fence"></div>
         <div class="card__content">
@@ -15,3 +17,4 @@
         </div>
     </li>
 {% endfor %}
+{% show_more %}
