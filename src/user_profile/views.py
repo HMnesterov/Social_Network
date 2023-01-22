@@ -31,7 +31,8 @@ class BaseProfileTemplate:
 
 
 class UserProfile(BaseProfileTemplate, LoginRequiredMixin, View):
-    def get(self, request, id):
+    def get(self, request, id, template='profile/profile.html', page_template='profile/tags/posts.html'):
+
 
         who_is_it, admin, page_owner, visitor = self.determine_user_rights_and_his_relationships_with_page_owner(request, id).values()
 
@@ -46,11 +47,19 @@ class UserProfile(BaseProfileTemplate, LoginRequiredMixin, View):
         if admin:
             form = PostForm()
 
-        return render(request, 'profile/profile.html',
-                      {'user': page_owner,
-                       'posts': posts,
-                       'post_form': form,
-                       'who_is_it': who_is_it})
+
+        if request.is_ajax():
+            template = page_template
+
+
+        context = {
+            'posts': posts,
+            'post_form': form,
+            'who_is_it': who_is_it,
+            'user': page_owner,
+        }
+
+        return render(request, template, context)
 
     def post(self, request, id):
         data = self.determine_user_rights_and_his_relationships_with_page_owner(request, id)
