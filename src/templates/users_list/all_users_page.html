@@ -2,7 +2,9 @@
 {% paginate users %}
 {% for user in users %}
     <li class="cards__item">
-        <div class="card__image card__image--fence"></div>
+        <div class="card__image card__image--fence">
+            <img src="{{ user.photo.url }}">
+        </div>
         <div class="card__content">
             <div class="card__title"><a href="{{user.profile_link}}">{{user.username}}</a></div>
             <p class="card__text">{{user.bio}} </p>
@@ -17,4 +19,6 @@
         </div>
     </li>
 {% endfor %}
+<div>
 {% show_more %}
+</div>

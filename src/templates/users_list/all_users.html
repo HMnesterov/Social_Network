@@ -13,15 +13,13 @@
 <body>
 {% include 'interface/sidebar.html' %}
 {% include 'interface/notifications.html' %}
-<ul class="cards">
+
 
 
 
     {% include all_users_page %}
 
 
-
-</ul>
 
 
 
@@ -32,7 +30,7 @@
     <script>
         $.endlessPaginate({
             paginateOnScroll: true,
-            paginateOnScrollChunkSize: 5
+            paginateOnScrollChunkSize: 20
         });
     </script>
 </body>
