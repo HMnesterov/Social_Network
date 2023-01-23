@@ -45,7 +45,9 @@
             <button id="hider" class="toggle-menu-btn show_search">Add Friend</button>
             <div id="add-in-chat">
                 {% for person in new_persons %}
-                    <a href="javascript:AddUserInChat({{ room_id }}, {{ person.id }});">Add {{ person }}</a>
+
+                    <a href="javascript:AddUserInChat({{ room_id }}, {{ person.id }}, '{{person.username}}' );"
+                       id=Add_{{ person.id }} >Add {{ person }} </a>
                 {% endfor %}
             </div>
 
@@ -56,33 +58,32 @@
   </textarea>
 
 
-    <script>
-    function scroll_down_textarea(){
-         $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
-    }
+            <script>
+                function scroll_down_textarea() {
+                    $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+                }
 
 
+                function add_old_message_to_textbox() {
+                    var messages = [
+                        {% for message in old_messages %}
+                            "{{ message }}",
+                        {% endfor %}
+                    ]
+                    console.log(messages)
+                    for (indx in messages) {
 
-function add_old_message_to_textbox (){
-    var messages = [
-        {% for message in old_messages %}
-        "{{ message }}",
-        {% endfor %}
-    ]
-     console.log(messages)
-    for (indx in messages) {
 
+                        document.querySelector('#chat-messages').value += ('\n' + messages[indx] + '\n')
+                    }
+                    scroll_down_textarea()
 
-        document.querySelector('#chat-messages').value += ('\n' + messages[indx] + '\n')
-    }
-   scroll_down_textarea()
+                }
+            </script>
 
-}
-</script>
-
-<script>
-    add_old_message_to_textbox()
-</script>
+            <script>
+                add_old_message_to_textbox()
+            </script>
 
 
         </div>
@@ -132,14 +133,18 @@ function add_old_message_to_textbox (){
         <div class="dropdown">
             {% if request.user == admin %}
                 {% for person in chat_members %}
-                    <p>    <a href="javascript:KickUserFromChat({{ room_id }}, {{ person.id }});">Kick {{ person }}</a>
-                    </span>
+                    <p id="Kick_{{ person.id }}"><a
+                            href="javascript:KickUserFromChat({{ room_id }}, {{ person.id }}, '{{ person.username }}' );">Kick {{ person }}</a>
+                    </p>
+
                 {% endfor %}
 
-            {% else %}
-                <span><a
-                        href="javascript:KickUserFromChat({{ room_id }}, {{ request.user.id }});">Leave chat</a> </span>
+
+
             {% endif %}
+            <span id="Kick_{{ request.user.id }}"><a
+                    href="javascript:KickUserFromChat({{ room_id }}, {{ request.user.id }});"
+                    onclick="redirect_to_chats_list()">Leave chat</a> </span>
 
 
         </div>
@@ -148,9 +153,9 @@ function add_old_message_to_textbox (){
 
 
 
-     <script src="{%  static 'js/websocket_chat.js' %}"></script>
+    <script src="{% static 'js/websocket_chat.js' %}"></script>
 
-    <script src="{%  static 'js/kick_and_add_in_chat_functions.js' %}"></script>
+    <script src="{% static 'js/kick_and_add_in_chat_functions.js' %}"></script>
 
 
 

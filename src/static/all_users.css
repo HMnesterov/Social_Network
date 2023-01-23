@@ -128,7 +128,7 @@ img {
 }
 
 .card__title {
-  color: @gray-dark;
+  color: @grey-dark;
   font-size: 1.25rem;
   font-weight: 300;
   letter-spacing: 2px;
