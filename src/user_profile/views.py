@@ -33,8 +33,8 @@ class BaseProfileTemplate:
 class UserProfile(BaseProfileTemplate, LoginRequiredMixin, View):
     def get(self, request, id, template='profile/profile.html', page_template='profile/tags/posts.html'):
 
-
-        who_is_it, admin, page_owner, visitor = self.determine_user_rights_and_his_relationships_with_page_owner(request, id).values()
+        who_is_it, admin, page_owner, visitor = self.determine_user_rights_and_his_relationships_with_page_owner(
+            request, id).values()
 
         try:
             posts = page_owner.where_published.all().select_related('author').order_by('created_date',
@@ -47,10 +47,8 @@ class UserProfile(BaseProfileTemplate, LoginRequiredMixin, View):
         if admin:
             form = PostForm()
 
-
         if request.is_ajax():
             template = page_template
-
 
         context = {
             'posts': posts,
@@ -77,10 +75,14 @@ class UserProfile(BaseProfileTemplate, LoginRequiredMixin, View):
 
 @login_required
 def user_profile_part_where_we_show_friends(request, id):
+
     user = Person.objects.prefetch_related('friends').get(id=id)
     try:
         friends = user.friends.all()
-        return render(request, 'profile/friends.html', {'user': user, 'friends': friends})
+        who_is_it = None
+        if request.user in friends:
+            who_is_it = 'Friend'
+        return render(request, 'profile/friends.html', {'user': user, 'friends': friends, 'who_is_it': who_is_it})
     except AttributeError:
         return render(request, 'profile/friends.html', {'user': user, 'friends': None})
 
@@ -106,15 +108,14 @@ def post_like_button(request, post_id):
         ctx = {"likes_count": post.likes, "post_id": post_id}
 
         return HttpResponse(json.dumps(ctx), content_type='application/json')
-    except Exception as e:
+    except Exception:
         return HttpResponse('Error')
 
 
 @login_required
 def user_profile_information_edit(request, id):
-    page_owner = get_object_or_404(Person, id=id)
+    who_is_it, admin, page_owner, visitor = UserProfile.determine_user_rights_and_his_relationships_with_page_owner(request, id).values()
     form = UserProfileEdit(initial={'photo': page_owner.photo, 'status': page_owner.status, 'bio': page_owner.bio})
-    admin = True if request.user == page_owner else False
 
     if request.method == "POST":
         form = UserProfileEdit(request.POST, request.FILES)
@@ -126,4 +127,5 @@ def user_profile_information_edit(request, id):
                 page_owner.photo = form.cleaned_data['photo']
             page_owner.save()
             return redirect('user_profile_edit', id=id)
-    return render(request, 'profile/edit_profile.html', {'form': form, 'admin': admin, 'user': page_owner})
+    return render(request, 'profile/edit_profile.html',
+                  {'form': form, 'admin': admin, 'user': page_owner, 'who_is_it': who_is_it})
