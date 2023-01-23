@@ -9,12 +9,9 @@ register = template.Library()
 
 @register.simple_tag()
 def get_last_notifications(request):
-    objects = list(request.user.notifications.all())
+    objects = list(request.user.notifications.all())[-3:]
 
-    class Info:
-        def __init__(self, objects):
-            self.objects = objects
-            self.count = len(self.objects)
 
-    object = Info(objects[-3:] )
-    return object
+
+    context = {'objects': objects, 'count': len(objects)}
+    return context

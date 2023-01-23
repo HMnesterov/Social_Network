@@ -13,7 +13,7 @@ from user_profile.models import Post
 
 class BaseProfileTemplate:
     @staticmethod
-    def determine_user_rights_and_his_relationships_with_page_owner(request, user_id):
+    def determine_user_rights_and_his_relationships_with_page_owner(request, user_id: int):
         page_owner = get_object_or_404(Person, id=user_id)
         visitor = request.user
         if page_owner == visitor:
@@ -31,7 +31,7 @@ class BaseProfileTemplate:
 
 
 class UserProfile(BaseProfileTemplate, LoginRequiredMixin, View):
-    def get(self, request, id, template='profile/profile.html', page_template='profile/tags/posts.html'):
+    def get(self, request, id: int, template='profile/profile.html', page_template='profile/tags/posts.html'):
 
         who_is_it, admin, page_owner, visitor = self.determine_user_rights_and_his_relationships_with_page_owner(
             request, id).values()
@@ -59,7 +59,7 @@ class UserProfile(BaseProfileTemplate, LoginRequiredMixin, View):
 
         return render(request, template, context)
 
-    def post(self, request, id):
+    def post(self, request, id: int):
         data = self.determine_user_rights_and_his_relationships_with_page_owner(request, id)
         admin = data['admin']
         if not admin:
@@ -74,7 +74,7 @@ class UserProfile(BaseProfileTemplate, LoginRequiredMixin, View):
 
 
 @login_required
-def user_profile_part_where_we_show_friends(request, id):
+def user_profile_part_where_we_show_friends(request, id: int):
 
     user = Person.objects.prefetch_related('friends').get(id=id)
     try:
@@ -100,7 +100,7 @@ def news(request):
     return render(request, 'news.html')
 
 
-def post_like_button(request, post_id):
+def post_like_button(request, post_id: int):
     try:
         post = get_object_or_404(Post, id=post_id)
         post.likes += 1
@@ -113,7 +113,7 @@ def post_like_button(request, post_id):
 
 
 @login_required
-def user_profile_information_edit(request, id):
+def user_profile_information_edit(request, id: int):
     who_is_it, admin, page_owner, visitor = UserProfile.determine_user_rights_and_his_relationships_with_page_owner(request, id).values()
     form = UserProfileEdit(initial={'photo': page_owner.photo, 'status': page_owner.status, 'bio': page_owner.bio})
 

@@ -8,13 +8,13 @@ from webchat.models import Chat
 
 
 @login_required
-def chatroom_page(request, room_id):
+def chatroom_page(request, room_id: int):
     chat = get_object_or_404(Chat, id=room_id)
     chat_members = chat.members.all()
     if request.user not in chat_members:
         return redirect('user_profile', id=request.user.id)
-    friends_that_dont_participate_in_chat = request.user.friends.exclude(id__in=[i.id for i in chat_members])
-    old_messages = chat.chat_messages.select_related('author').all()
+    friends_that_dont_participate_in_chat: list = request.user.friends.exclude(id__in=[i.id for i in chat_members])
+    old_messages: list = chat.chat_messages.select_related('author').all()
 
 
     return render(request, 'chat/chatroom.html',
@@ -40,7 +40,7 @@ def all_chats_where_current_user_participate_in(request):
 
 
 @login_required
-def add_new_user_to_chat(request, chat_id, user_id):
+def add_new_user_to_chat(request, chat_id: int, user_id: int):
     user = get_object_or_404(Person, id=user_id)
     chat = get_object_or_404(Chat, id=chat_id)
     if not (request.user in chat.members.all()):
