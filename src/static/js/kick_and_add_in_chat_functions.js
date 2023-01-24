@@ -1,4 +1,3 @@
-
 function KickUserFromChat(chat_id, user_id, username) {
 
     const men_shoe_link = '/chat/current_chat/delete_user/' + chat_id + '/' + user_id + '/'
@@ -9,7 +8,6 @@ function KickUserFromChat(chat_id, user_id, username) {
             'csrfmiddlewaretoken': '{{ csrf_token }}'
         },
         dataType: "json",
-
 
 
     });
@@ -33,24 +31,35 @@ function AddUserInChat(chat_id, user_id, person_username) {
         },
         dataType: "json",
 
-        success: function (data){
+        success: function (data) {
             return data
         }
-
 
 
     });
 
 
-      let part = document.getElementById(`Add_${user_id}`)
+    let part = document.getElementById(`Add_${user_id}`)
     part.style.visibility = 'hidden';
 
 
     document.querySelector('#chat-messages').value += (`${person_username} has been added to chat!` + '\n')
 }
 
-function redirect_to_chats_list (){
+function redirect_to_chats_list() {
     let domain = window.location.hostname
     window.location.href = '/chat/all_chats';
 
 }
+
+function f() {
+            document.getElementsByClassName('dropdown')[0].classList.toggle('down');
+            document.getElementsByClassName('arrow')[0].classList.toggle('gone');
+            if (document.getElementsByClassName('dropdown')[0].classList.contains('down')) {
+                setTimeout(function () {
+                    document.getElementsByClassName('dropdown')[0].style.overflow = 'visible'
+                }, 500)
+            } else {
+                document.getElementsByClassName('dropdown')[0].style.overflow = 'hidden'
+            }
+        }
