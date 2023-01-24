@@ -9,74 +9,73 @@
 
 
     <li>
-    <!-- begin timeline-time -->
-    <div class="timeline-time">
-        <span class="date">{{ post.created_date }}</span>
-        <span class="time">{{ post.created_time }}</span>
-    </div>
-    <!-- end timeline-time -->
-    <!-- begin timeline-icon -->
-    <div class="timeline-icon">
-        <a href="javascript:">&nbsp;</a>
-    </div>
-    <!-- end timeline-icon -->
-    <!-- begin timeline-body -->
-    <div class="timeline-body">
-    <div class="timeline-header">
-                    <span class="userimage"><a href="{{ post.author.profile_link }}"><img
-                            src='../../media/{{ post.author.photo }}'> alt=""></a></span>
-        <span class="username"><a
-                href="{{ post.author.profile_link }}">{{ post.author.username }}</a></span>
-        <span class="pull-right text-muted">Have seen: {{ post.views }}</span>
-    </div>
-
-    <div class="timeline-content">
-        <p class="lead">
-            <i class="fa fa-quote-left fa-fw pull-left"></i>
-            {{ post.text }}
-            <i class="fa fa-quote-right fa-fw pull-right"></i>
-        </p>
-    </div>
-    <div class="timeline-likes">
-        <div class="stats-right">
-
-            <span class="stats-text">0 Comments</span>
+        <!-- begin timeline-time -->
+        <div class="timeline-time">
+            <span class="date">{{ post.created_date }}</span>
+            <span class="time">{{ post.created_time }}</span>
         </div>
-        <div class="stats">
+        <!-- end timeline-time -->
+        <!-- begin timeline-icon -->
+        <div class="timeline-icon">
+            <a href="javascript:">&nbsp;</a>
+        </div>
+        <!-- end timeline-icon -->
+        <!-- begin timeline-body -->
+        <div class="timeline-body">
+            <div class="timeline-header">
+                    <span class="userimage"><a href="{{ post.author.profile_link }}"><img
+                            src='{{ post.author.photo.url }}'> alt=""></a></span>
+                <span class="username"><a
+                        href="{{ post.author.profile_link }}">{{ post.author.username }}</a></span>
+                <span class="pull-right text-muted">Have seen: {{ post.views }}</span>
+            </div>
+
+            <div class="timeline-content">
+                <p class="lead">
+                    <i class="fa fa-quote-left fa-fw pull-left"></i>
+                    {{ post.text }}
+                    <i class="fa fa-quote-right fa-fw pull-right"></i>
+                </p>
+            </div>
+            <div class="timeline-likes">
+                <div class="stats-right">
+
+                    <span class="stats-text">0 Comments</span>
+                </div>
+                <div class="stats">
                                     <span class="fa-stack fa-fw stats-icon">
                                     <i class="fa fa-circle fa-stack-2x text-danger"></i>
                                     <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
                                     </span>
-            <span class="fa-stack fa-fw stats-icon">
+                    <span class="fa-stack fa-fw stats-icon">
                                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
                                     <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
                                     </span>
-            <span class="stats-total">{{ post.likes }}</span>
-        </div>
-    </div>
-    <div class="timeline-footer">
-        <a href="javascript:LikeButton({{ post.id }});" id='Shoe'
-           data-url="{% url 'like_post' post_id=post.id}" class="m-r-15 text-inverse-lighter" class="likin"><i
-                            class=" fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-        <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i
-                class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-        <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i
-                class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
-    </div>
-    <div class="timeline-comment-box">
-        <div class="user"><img src="../../media/{{ request.user.photo }}"></div>
-        <div class="input">
-            <form action="">
-                <div class="input-group">
-                    <input type="text" class="form-control rounded-corner" placeholder="Write a comment...">
-                    <span class="input-group-btn p-l-10">
+                    <span id='Post_{{ post.id }}' class="stats-total">{{ post.likes }}</span>
+                </div>
+            </div>
+            <div class="timeline-footer">
+                <a href="javascript:LikeButton({{ post.id }});" class="m-r-15 text-inverse-lighter" class="likin"><i
+                        class=" fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
+                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i
+                        class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
+                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i
+                        class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
+            </div>
+            <div class="timeline-comment-box">
+                <div class="user"><img src="{{ request.user.photo.url }}"></div>
+                <div class="input">
+                    <form action="">
+                        <div class="input-group">
+                            <input type="text" class="form-control rounded-corner" placeholder="Write a comment...">
+                            <span class="input-group-btn p-l-10">
                                           <button class="btn btn-primary f-s-12 rounded-corner"
                                                   type="button">Comment</button>
                                           </span>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-    </div>
+            </div>
     </li>
 
 
@@ -94,24 +93,16 @@
                 },
                 dataType: "json",
 
-
             });
+            document.getElementById(`Post_${post_id}`).textContent = Number(document.getElementById(`Post_${post_id}`).textContent) + 1;
 
         }
+
     </script>
     <!-- end timeline-body -->
 
 {% endfor %}
 {% show_more %}
-
-
-
-
-
-
-
-
-
 
 
 <script>
