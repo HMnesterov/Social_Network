@@ -6,41 +6,81 @@
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'all_users.css' %}">
     <link rel="stylesheet" href="{% static 'sidebar.css' %}">
-
-
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'js/all_users_functions.js' %}"></script>
 
 
-
 </head>
 <body>
 {% include 'interface/sidebar.html' %}
 {% include 'interface/notifications.html' %}
+<center>
+    <input id="input" type="text" size="121">
+    <br>
 
 
+    <input id="submit" type="submit" class="btn btn-primary" value="Find user using nickname">
+</center>
 
 
-    {% include all_users_page %}
+{% include all_users_page %}
 
 
-
-
-
-
-
- <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="{%  static 'js/el-pagination.js' %}"></script>
-    <script>
-        $.endlessPaginate({
-            paginateOnScroll: true,
-            paginateOnScrollChunkSize: 20
-        });
-    </script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{% static 'js/el-pagination.js' %}"></script>
+<script>
+    $.endlessPaginate({
+        paginateOnScroll: true,
+        paginateOnScrollChunkSize: 20
+    });
+</script>
 </body>
 
 
+<script>
+    document.querySelector('#submit').onclick = function (e) {
+        const messageInputDom = document.querySelector('#input')
+        const text = messageInputDom.value;
+        fetch(`/friendship/all_users_list/${text}/`).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            let main_block = document.getElementById('semen')
+            main_block.innerHTML = "";
+            for (var variable in data) {
+                let main = data[variable]
 
+                main_block.insertAdjacentHTML('afterbegin', `
+              <li class="cards__item">
+
+
+        <div class="card__content">
+            <div class="card__title"><a href="${main['link']}">${main['username']}</a></div>
+            <p class="card__text">${main['bio']} </p>
+                <div id="">
+                <a href="javascript:SendFriendshipRequest(${main['id']})">
+                    <button  type="button" class="btn btn--block card__btn">
+                       Send Friend Request
+                    </button>
+
+                </a>
+                </div>
+                <a href="" id="insert_${main['id']}"></a>
+
+
+
+        </div>
+
+    </li>`)
+            }
+
+        }).catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        });
+
+
+    }
+</script>
