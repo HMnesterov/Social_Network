@@ -136,16 +136,11 @@
                     <p id="Kick_{{ person.id }}"><a
                             href="javascript:KickUserFromChat({{ room_id }}, {{ person.id }}, '{{ person.username }}' );">Kick {{ person }}</a>
                     </p>
-
                 {% endfor %}
-
-
-
             {% endif %}
             <span id="Kick_{{ request.user.id }}"><a
                     href="javascript:KickUserFromChat({{ room_id }}, {{ request.user.id }});"
                     onclick="redirect_to_chats_list()">Leave chat</a> </span>
-
 
         </div>
     </div>
@@ -163,23 +158,6 @@
 
 
 
-
-
-
-
-    <script>
-        function f() {
-            document.getElementsByClassName('dropdown')[0].classList.toggle('down');
-            document.getElementsByClassName('arrow')[0].classList.toggle('gone');
-            if (document.getElementsByClassName('dropdown')[0].classList.contains('down')) {
-                setTimeout(function () {
-                    document.getElementsByClassName('dropdown')[0].style.overflow = 'visible'
-                }, 500)
-            } else {
-                document.getElementsByClassName('dropdown')[0].style.overflow = 'hidden'
-            }
-        }
-    </script>
 
 
 
