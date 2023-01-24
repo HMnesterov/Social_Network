@@ -1,4 +1,5 @@
-from django.http import  HttpResponseBadRequest
+
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -65,7 +66,6 @@ def remove_friend(request, id):
 def show_friendship_requests(request):
     user = request.user
     for_me = user.to_another_user.all()
-    my_req = user.from_one_user.all()
     return render(request, 'users_list/friend_requests.html', {'requests': for_me})
 
 
@@ -82,3 +82,18 @@ def all_users_list_with_dynamic_ajax_update(request,
     if request.is_ajax():
         template = page_template
     return render(request, template, context)
+
+
+@login_required
+def find_users_by_nickname(request, text):
+
+
+    users = Person.objects.filter(username__icontains=text)
+    serialized_data = [{'username': user.username, 'id': user.id, 'link': user.profile_link(), 'bio': user.bio} for user in users]
+
+
+
+
+
+    return JsonResponse(serialized_data, safe=False, status=200)
+

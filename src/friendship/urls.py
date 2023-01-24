@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import send_friendship_request, accept_friendship_request, reject_friendship_request, remove_friend,  show_friendship_requests, all_users_list_with_dynamic_ajax_update
+from .views import send_friendship_request, accept_friendship_request, reject_friendship_request, remove_friend,  show_friendship_requests, \
+    all_users_list_with_dynamic_ajax_update, find_users_by_nickname
 
 urlpatterns = [
 
@@ -11,5 +12,6 @@ urlpatterns = [
     path('remove_friend/<int:id>', remove_friend, name='friend_remove'),
 
     path('all_users_list', all_users_list_with_dynamic_ajax_update, name='all_users'),
-    path('friendship_requests/', show_friendship_requests, name='friendship_requests')
+    path('friendship_requests/', show_friendship_requests, name='friendship_requests'),
+    path('all_users_list/<slug:text>/', find_users_by_nickname)
 ]
