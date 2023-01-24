@@ -18,18 +18,9 @@
                                     <b class="text-inverse"><a href="{{friend.profile_link}}">{{friend.username}}</a></b>
                                  </div>
                                  <div class="media-body valign-middle text-right overflow-visible">
-                                    <div class="btn-group dropdown">
-                                       <a href="javascript:;" class="btn btn-default">Friends</a>
-                                       <a href="javascript:;" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false"></a>
-                                       <ul class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(101px, 34px, 0px);">
-                                          <li><a href="{% url 'friend_remove' id=friend.id %}">Action 1</a></li>
-                                          <li><a href="javascript:;">Action 2</a></li>
-                                          <li><a href="javascript:;">Action 3</a></li>
-                                          <li class="divider"></li>
-                                          <li><a href="javascript:;">Action 4</a></li>
-                                           1
-                                       </ul>
-                                    </div>
+
+                                       <a href="javascript:FriendRemove({{ friend.id }})" class="btn btn-default" id="Remove_{{ friend.id }}">Delete</a>
+
                                  </div>
                               </div>
                            </div>
@@ -38,3 +29,29 @@
                      </div>
                   </div>
                         <!-- end col-6 -->
+
+
+<script>
+    function FriendRemove(friend_id){
+
+    const friendship_link = `/friendship/remove_friend/${friend_id}`
+
+    let result = $.ajax({
+        type: "GET",
+        url: friendship_link,
+        data: {
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        dataType: "json",
+        success: function (data) {
+            return data
+        }
+    });
+    let part =  document.getElementById(`Remove_${friend_id}`)
+    part.style.visibility = 'hidden';
+
+    }
+
+</script>
+
+
