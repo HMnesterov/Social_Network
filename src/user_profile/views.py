@@ -75,7 +75,6 @@ class UserProfile(BaseProfileTemplate, LoginRequiredMixin, View):
 
 @login_required
 def user_profile_part_where_we_show_friends(request, id: int):
-
     user = Person.objects.prefetch_related('friends').get(id=id)
     try:
         friends = user.friends.all()
@@ -87,17 +86,7 @@ def user_profile_part_where_we_show_friends(request, id: int):
         return render(request, 'profile/friends.html', {'user': user, 'friends': None})
 
 
-def news(request):
-    if request.user.is_authenticated:
 
-        friends = request.user.friends.all()
-        posts = []
-        for friend in friends:
-            friend_posts = friend.return_posts.all()
-            posts += friend_posts
-
-        return render(request, 'news.html', {'posts': posts})
-    return render(request, 'news.html')
 
 
 def post_like_button(request, post_id: int):
@@ -114,7 +103,8 @@ def post_like_button(request, post_id: int):
 
 @login_required
 def user_profile_information_edit(request, id: int):
-    who_is_it, admin, page_owner, visitor = UserProfile.determine_user_rights_and_his_relationships_with_page_owner(request, id).values()
+    who_is_it, admin, page_owner, visitor = UserProfile.determine_user_rights_and_his_relationships_with_page_owner(
+        request, id).values()
     form = UserProfileEdit(initial={'photo': page_owner.photo, 'status': page_owner.status, 'bio': page_owner.bio})
 
     if request.method == "POST":
