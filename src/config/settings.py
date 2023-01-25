@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # notifications_app
     'notifications',
+    #app for some unique views
+    'all_users_views'
 
 
 
