@@ -1,11 +1,12 @@
 "use strict";
+
 function hide_button(id) {
-      let part = document.getElementById(id)
-       let replaced_part = document.getElementById(`insert_${id}`)
-       let new_part = 'Your request has been sent to this user!'
-       replaced_part.insertAdjacentHTML('beforebegin', new_part)
+    let part = document.getElementById(id)
+    let replaced_part = document.getElementById(`insert_${id}`)
+    let new_part = 'Your request has been sent to this user!'
+    replaced_part.insertAdjacentHTML('beforebegin', new_part)
     part.style.visibility = 'hidden';
-    }
+}
 
 
 function SendFriendshipRequest(user_id) {
@@ -24,3 +25,5 @@ function SendFriendshipRequest(user_id) {
     });
     hide_button(user_id)
 }
+
+

@@ -4,13 +4,6 @@
 </div>
 
 
-
-
-
-
-
-
-
 {% load el_pagination_tags %}
 {% paginate users %}
 
@@ -30,12 +23,12 @@
             <p class="card__text">{{ user.bio }} </p>
             {% if user not in friends %}
                 <div id="{{ user.id }}">
-                <a href="javascript:SendFriendshipRequest({{ user.id }})">
-                    <button  type="button" class="btn btn--block card__btn">
-                       Send Friend Request
+
+                    <button type="button" onclick="SendFriendshipRequest({{ user.id }})">
+                        Send Friend Request
                     </button>
 
-                </a>
+
                 </div>
                 <a href="" id="insert_{{ user.id }}"></a>
 

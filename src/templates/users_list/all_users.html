@@ -45,7 +45,7 @@
     document.querySelector('#submit').onclick = function (e) {
         const messageInputDom = document.querySelector('#input')
         const text = messageInputDom.value;
-        fetch(`/friendship/all_users_list/${text}/`).then(function (response) {
+        fetch(`/all_users_list/${text}/`).then(function (response) {
             return response.json();
         }).then(function (data) {
             let main_block = document.getElementById('semen')
@@ -60,9 +60,9 @@
         <div class="card__content">
             <div class="card__title"><a href="${main['link']}">${main['username']}</a></div>
             <p class="card__text">${main['bio']} </p>
-                <div id="">
+                <div id="${main['id']}">
                 <a href="javascript:SendFriendshipRequest(${main['id']})">
-                    <button  type="button" class="btn btn--block card__btn">
+                    <button  type="button" >
                        Send Friend Request
                     </button>
 
