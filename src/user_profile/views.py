@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 
@@ -119,3 +119,15 @@ def user_profile_information_edit(request, id: int):
             return redirect('user_profile_edit', id=id)
     return render(request, 'profile/edit_profile.html',
                   {'form': form, 'admin': admin, 'user': page_owner, 'who_is_it': who_is_it})
+
+
+@login_required
+def remove_post(request, post_id: int):
+    post = get_object_or_404(Post, id=post_id)
+    user = request.user
+    if user == post.author or user == post.where_published:
+        post.delete()
+        return JsonResponse({'status': '201'})
+    return JsonResponse({'status': '404'})
+
+

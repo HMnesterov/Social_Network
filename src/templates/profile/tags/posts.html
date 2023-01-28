@@ -8,7 +8,7 @@
 
 
 
-    <li>
+    <li id="{{ post.id }}">
         <!-- begin timeline-time -->
         <div class="timeline-time">
             <span class="date">{{ post.created_date }}</span>
@@ -40,7 +40,7 @@
             <div class="timeline-likes">
                 <div class="stats-right">
 
-                    <span class="stats-text">0 Comments</span>
+                    <button type="submit" style="color:darkred"><a href="javascript:DeletePost({{ post.id }})"> Delete Post</a></button>
                 </div>
                 <div class="stats">
                                     <span class="fa-stack fa-fw stats-icon">
@@ -95,8 +95,26 @@
 
             });
             document.getElementById(`Post_${post_id}`).textContent = Number(document.getElementById(`Post_${post_id}`).textContent) + 1;
-
         }
+
+            function DeletePost(post_id) {
+                 var men_shoe_link = `delete_post/${post_id}`
+
+                  $.ajax({
+                      type: "POST",
+                      url: men_shoe_link,
+                      data: {
+                          'csrfmiddlewaretoken': '{{ csrf_token }}'
+                      },
+                      dataType: "json",
+
+                  });
+                 let part = document.getElementById(post_id)
+                part.style.visibility = 'hidden'
+
+
+                  }
+
 
     </script>
     <!-- end timeline-body -->
