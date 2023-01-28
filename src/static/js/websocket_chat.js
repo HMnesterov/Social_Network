@@ -28,3 +28,6 @@ const roomID = JSON.parse(document.getElementById("room-id").textContent);
         scroll_down_textarea()
 
     }
+
+
+

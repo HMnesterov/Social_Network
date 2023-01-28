@@ -7,9 +7,9 @@ from user.models import Person
 
 @login_required
 def all_users_list_with_dynamic_ajax_update(request,
-               template='users_list/all_users.html',
-               page_template='users_list/all_users_page.html'):
-    #USERS LIST WITH AJAX UPDATE
+                                            template='users_list/all_users.html',
+                                            page_template='users_list/all_users_page.html'):
+    # USERS LIST WITH AJAX UPDATE
     context = {
         'users': Person.objects.all().exclude(id=request.user.id),
         'friends': request.user.friends.all(),
@@ -22,18 +22,11 @@ def all_users_list_with_dynamic_ajax_update(request,
 
 @login_required
 def find_users_by_nickname(request, text):
-
-
     users = Person.objects.filter(username__icontains=text)
-    serialized_data = [{'username': user.username, 'id': user.id, 'link': user.profile_link(), 'bio': user.bio} for user in users]
-
-
-
-
+    serialized_data = [{'username': user.username, 'id': user.id, 'link': user.profile_link(), 'bio': user.bio} for user
+                       in users]
 
     return JsonResponse(serialized_data, safe=False, status=200)
-
-
 
 
 def news(request, template='news.html', page_template='profile/tags/posts.html'):

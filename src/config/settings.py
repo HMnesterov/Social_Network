@@ -139,8 +139,8 @@ CHANNEL_LAYERS = {
 
 
 
-LOGIN_URL='/user/register'
-LOGIN_REDIRECT_URL='/user/register'
+LOGIN_URL = '/user/register'
+LOGIN_REDIRECT_URL = '/user/register'
 
 
 

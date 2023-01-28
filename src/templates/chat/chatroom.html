@@ -70,11 +70,11 @@
                             "{{ message }}",
                         {% endfor %}
                     ]
-                    console.log(messages)
+
                     for (indx in messages) {
 
 
-                        document.querySelector('#chat-messages').value += ('\n' + messages[indx] + '\n')
+                        document.querySelector('#chat-messages').value += (messages[indx] + '\n')
                     }
                     scroll_down_textarea()
 
@@ -89,10 +89,20 @@
         </div>
 
 
-        <input id="input" type="text" size="121"></br>
+        <input id="input" type="text" size="121" ></br>
 
 
         <input id="submit" type="submit" class="btn btn-primary" value="send">
+
+
+    <script>
+       $(document).ready(function(){
+            $('#input').keypress(function(e){
+              if(e.keyCode==13)
+              $('#submit').click();
+            });
+});
+    </script>
     </div>
 
     {{ room_id|json_script:"room-id" }}
