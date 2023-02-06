@@ -48,7 +48,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         username = event['username']
         await self.send(text_data=json.dumps({'message': message, 'username': username, }))
 
-
     @database_sync_to_async
     def post_message(self, message, username, chat_id):
         guy = get_object_or_404(Person, username=username)
