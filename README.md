@@ -33,7 +33,7 @@ docker-compose up -d
 
 
 
-Opportunities:
+Opportunities(over time, there will be more of them):
 ------
 
 
