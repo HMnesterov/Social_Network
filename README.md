@@ -13,9 +13,9 @@ Launch
 git clone https://github.com/BenitoSwaggolini/Social_Network.git
 python -m venv venv
 .\venv\Scripts\activate
-cd Social_Network\src
-
+cd Social_Network
 pip install -r requirements.txt
+cd src
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
