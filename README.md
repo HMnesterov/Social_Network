@@ -13,8 +13,11 @@ Launch
 git clone https://github.com/BenitoSwaggolini/Social_Network.git
 python -m venv venv
 .\venv\Scripts\activate
-cd src
+cd Social_Network
+pip install Django==3.2.6
+pip install -U channels["daphne"]
 pip install -r requirements.txt
+cd src
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
