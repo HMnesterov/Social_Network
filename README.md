@@ -22,6 +22,7 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
+You can set PostgresSQL in settings (fill .env file)
 
 
 
