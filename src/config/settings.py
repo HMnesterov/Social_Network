@@ -93,7 +93,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+#PostgreSQL
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': os.getenv("POSTGRES_NAME"),
+#        'USER': 'os.getenv("POSTGRES_USER"),'
+#        'PASSWORD': 'postgres',
+#        'HOST': 'localhost',
+#        'PORT': 5433,
+#    }
+#}
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
