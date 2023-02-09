@@ -5,3 +5,5 @@
 .env
 src/media
 src/db.sqlite3
+
+__pycache__

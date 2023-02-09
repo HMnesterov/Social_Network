@@ -1,10 +1,6 @@
 ## My own social network on Django and Websockets
 
-
-
 ## If you want to change  settings, you should edit the env file
-
-
 
 Launch
 ------
@@ -24,22 +20,17 @@ python manage.py runserver
 ```
 You can set PostgresSQL in settings (fill .env file)
 
-
-
 Docker
 ------
 
 ```
-git clone https://github.com/BenitoSwaggolini/Website-for-calculating-expenses.git
+git clone https://github.com/BenitoSwaggolini/Social_Network.git
+cd Social_Network
 docker-compose up -d
 ```
 
-
-
-
 Opportunities(over time, there will be more of them):
 ------
-
 
 * Online dynamic chats
 * News
