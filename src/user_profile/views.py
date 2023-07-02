@@ -128,6 +128,6 @@ def remove_post(request, post_id: int):
     if user == post.author or user == post.where_published:
         post.delete()
         return JsonResponse({'status': '201'})
-    return JsonResponse({'status': '404'})
+    return JsonResponse({'status': '403'})
 
 

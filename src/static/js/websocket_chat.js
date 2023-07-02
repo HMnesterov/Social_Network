@@ -8,7 +8,8 @@ const roomID = JSON.parse(document.getElementById("room-id").textContent);
             ChatSocket.send(JSON.stringify({
                 'message': message,
                 'username': username,
-                'chat_id': roomID
+                'chat_id': roomID,
+                "type": "send_chat_message"
             }));
             messageInputDom.value = '';
         }
